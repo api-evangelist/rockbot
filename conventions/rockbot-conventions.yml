@@ -1,0 +1,50 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.rockbot.com/api.html
+api: openapi/rockbot-openapi.yml
+authentication:
+  style: oauth2-client-credentials
+  token: bearer
+  header: 'Authorization: Bearer ACCESS_TOKEN'
+  token_ttl_hours: 24
+  token_endpoint: https://api.rockbot.com/v5/api-clients/token
+  onboarding: Email support@rockbot.com to request a CLIENT_ID and one-time CLIENT_SECRET.
+  see: authentication/rockbot-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    No idempotency-key header or parameter is documented for the Rockbot v5 API.
+    Write operations (campaign create/enable, playback control, asset upload)
+    should be treated as non-idempotent by clients.
+pagination:
+  style: limit-offset
+  request_params: [limit, offset]
+  response_envelope:
+    fields: [total_count, page_size, page, page_count, data]
+  notes: Paginated endpoints share a common envelope with the collection under `data`.
+content_types:
+  request: [application/json, multipart/form-data]
+  response: [application/json]
+  notes: File uploads (audio/signage assets) use multipart/form-data; all else JSON.
+versioning:
+  scheme: uri-path
+  current: v5
+  base_path: /v5/ext
+  see: lifecycle/rockbot-lifecycle.yml
+rate_limiting:
+  default: 1 request per second
+  contact: Contact support to request higher limits.
+  operation_limits:
+    - operation: skipTrack
+      limit: 6 skips per hour
+scheduling:
+  campaign_recurrence: iCal RRULE syntax
+async_jobs:
+  pattern: >-
+    History export endpoints submit an asynchronous job; poll
+    GET /ext/data/history/exports/{job_id} until complete. Completed jobs return
+    a presigned JSONL download URL valid until `expires_at`.
+  format: JSONL
+error_envelope:
+  documented: false
+  notes: See errors/rockbot-problem-types.yml (derived from HTTP status semantics).

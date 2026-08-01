@@ -1,0 +1,12 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/rockbot-openapi.yml
+skills:
+  - file: rockbot-control-zone-music.md
+    name: Control zone music playback
+    api: openapi/rockbot-openapi.yml
+    operations: [createAccessToken, getNowPlaying, startMusic, stopMusic, setVolume, skipTrack, listZonePlaylists, createPlaylistOverride, deleteAllPlaylistOverrides]
+  - file: rockbot-run-messaging-campaign.md
+    name: Run an audio-messaging campaign
+    api: openapi/rockbot-openapi.yml
+    operations: [createAccessToken, uploadMessagingAssetZone, listMessagingAssetsByZone, createMessagingCampaignZone, addMessagingCampaignAsset, enableMessagingCampaign, playMessagingCampaign, listMessagingCampaignsByZone]

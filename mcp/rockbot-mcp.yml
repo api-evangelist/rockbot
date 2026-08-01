@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/rockbot-openapi.yml
+notes: >-
+  No official hosted/remote Rockbot MCP server was found. This is a CANDIDATE
+  tool list derived from the Rockbot v5 OpenAPI operations, one tool per
+  operationId, as a starting point for an agent-native surface. All calls
+  require an OAuth 2.0 client-credentials bearer token.
+server:
+  name: rockbot
+  transport: http
+  url: null
+tools:
+  - { name: get_device_status, description: Retrieve device operational metrics and configuration, source_operation: 'openapi/rockbot-openapi.yml#getDeviceStatus' }
+  - { name: get_device_screenshots, description: Fetch recent screen captures for a zone, source_operation: 'openapi/rockbot-openapi.yml#getDeviceScreenshots' }
+  - { name: reboot_device, description: Initiate remote device reboot, source_operation: 'openapi/rockbot-openapi.yml#rebootDevice' }
+  - { name: get_now_playing, description: Retrieve current playback state and queue, source_operation: 'openapi/rockbot-openapi.yml#getNowPlaying' }
+  - { name: skip_track, description: Advance to next track (max 6/hour), source_operation: 'openapi/rockbot-openapi.yml#skipTrack' }
+  - { name: start_music, description: Resume music playback, source_operation: 'openapi/rockbot-openapi.yml#startMusic' }
+  - { name: stop_music, description: Halt music playback, source_operation: 'openapi/rockbot-openapi.yml#stopMusic' }
+  - { name: set_volume, description: Adjust volume 0-100, source_operation: 'openapi/rockbot-openapi.yml#setVolume' }
+  - { name: list_zone_playlists, description: List available playlists for a zone, source_operation: 'openapi/rockbot-openapi.yml#listZonePlaylists' }
+  - { name: create_playlist_override, description: Set a temporary playlist override, source_operation: 'openapi/rockbot-openapi.yml#createPlaylistOverride' }
+  - { name: delete_playlist_override, description: Delete a specific playlist override, source_operation: 'openapi/rockbot-openapi.yml#deletePlaylistOverride' }
+  - { name: list_messaging_campaigns_by_zone, description: List audio-messaging campaigns by zone, source_operation: 'openapi/rockbot-openapi.yml#listMessagingCampaignsByZone' }
+  - { name: create_messaging_campaign_zone, description: Create a zone-level audio-messaging campaign, source_operation: 'openapi/rockbot-openapi.yml#createMessagingCampaignZone' }
+  - { name: play_messaging_campaign, description: Trigger immediate campaign playback, source_operation: 'openapi/rockbot-openapi.yml#playMessagingCampaign' }
+  - { name: list_signage_campaigns_by_zone, description: List signage campaigns by zone, source_operation: 'openapi/rockbot-openapi.yml#listSignageCampaignsByZone' }
+  - { name: create_signage_campaign_zone, description: Create a zone-level signage campaign, source_operation: 'openapi/rockbot-openapi.yml#createSignageCampaignZone' }
+  - { name: get_music_history, description: Zone-level music playback records, source_operation: 'openapi/rockbot-openapi.yml#getMusicHistory' }
+  - { name: export_music_history, description: Submit a group music-history export job, source_operation: 'openapi/rockbot-openapi.yml#exportMusicHistory' }
+  - { name: get_export_job, description: Poll asynchronous export job status, source_operation: 'openapi/rockbot-openapi.yml#getExportJob' }

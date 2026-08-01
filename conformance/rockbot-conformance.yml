@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/rockbot-openapi.yml
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: OpenAPI securityScheme type oauth2, clientCredentials flow (developer.rockbot.com/start.html)
+  - id: oauth2-client-credentials
+    conforms: true
+    evidence: Documented Client Credentials grant with token endpoint /v5/api-clients/token
+  - id: oidc
+    conforms: false
+    evidence: No OpenID Connect discovery or id_token documented
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: No application/problem+json error envelope documented
+  - id: pagination-limit-offset
+    conforms: true
+    evidence: Documented limit/offset params with total_count/page_size/page/page_count/data envelope
+  - id: rfc8594-sunset
+    conforms: false
+    evidence: No Sunset/Deprecation header policy published
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency-key mechanism documented
+  - id: ical-rrule
+    conforms: true
+    evidence: Campaign scheduling uses iCal RRULE syntax (RFC 5545)

@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/rockbot-openapi.yml
+format: http-status
+notes: >-
+  Rockbot does not publish a structured error-code reference. These problem
+  types are derived from the documented HTTP semantics (bearer auth + a default
+  1 request/second rate limit) and the responses modeled in the generated
+  OpenAPI. Titles/remediation are conservative; not confirmed against a docs
+  error registry.
+problems:
+  - status: 401
+    title: Unauthorized
+    meaning: Missing, expired, or invalid bearer access token.
+    remediation: >-
+      Obtain a fresh token from POST /v5/api-clients/token (tokens expire after
+      24 hours) and send it as `Authorization: Bearer ACCESS_TOKEN`.
+    source_operation: openapi/rockbot-openapi.yml#getNowPlaying
+  - status: 429
+    title: Too Many Requests
+    meaning: Rate limit exceeded (default 1 request per second; skipTrack additionally 6/hour).
+    remediation: Throttle to the documented limit or contact support for a higher limit.
+    source_operation: openapi/rockbot-openapi.yml#skipTrack

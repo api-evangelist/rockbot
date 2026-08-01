@@ -1,7 +1,16 @@
 aid: rockbot
 name: Rockbot
-description: 'Rockbot is a company surfaced as a portfolio company of gv and added to the API Evangelist
-  network as a stub for enrichment. Sector: consumer. This profile is a lead awaiting the enrichment pipeline.'
+description: >-
+  Rockbot is a unified in-location media platform for businesses, giving multi-location
+  operators one system to control background music, audio messaging, digital signage,
+  Rockbot TV, music videos, and retail-media advertising across their venues. Its v5
+  REST API lets customers programmatically manage that estate: control music playback
+  and playlist overrides per zone, run audio-messaging and signage campaigns by group
+  or zone, upload and attach assets, check device status / screenshots and reboot
+  players remotely, and pull or export music, messaging, and signage playback history.
+  Authentication is OAuth 2.0 client-credentials issuing 24-hour bearer tokens, with a
+  documented default rate limit of one request per second. Rockbot is a GV (Google
+  Ventures) portfolio company in the consumer sector.
 url: https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,18 +18,153 @@ x-backed-by:
 - gv
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+image: https://cdn.sanity.io/images/6h2uzio7/production/f258140dd891894dc1e27722af21f29a7c8c33e5-1581x1581.png
 tags:
 - Company
 - Consumer
-apis: []
+- Music
+- Digital Signage
+- Audio Messaging
+- Retail Media
+- In-Location Media
+- Media
+- Entertainment
+apis:
+- aid: rockbot:rockbot-audio-messaging-api
+  name: Rockbot Audio Messaging API
+  description: Audio-messaging campaigns and assets by group or zone.
+  humanURL: https://developer.rockbot.com
+  baseURL: https://api.rockbot.com/v5
+  tags:
+  - Audio Messaging
+  properties:
+  - type: OpenAPI
+    url: openapi/rockbot-audio-messaging-api-openapi.yml
+- aid: rockbot:rockbot-auth-api
+  name: Rockbot Auth API
+  description: OAuth 2.0 client-credentials token exchange.
+  humanURL: https://developer.rockbot.com
+  baseURL: https://api.rockbot.com/v5
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/rockbot-auth-api-openapi.yml
+- aid: rockbot:rockbot-data-api
+  name: Rockbot Data API
+  description: Playback history and asynchronous history exports.
+  humanURL: https://developer.rockbot.com
+  baseURL: https://api.rockbot.com/v5
+  tags:
+  - Data
+  properties:
+  - type: OpenAPI
+    url: openapi/rockbot-data-api-openapi.yml
+- aid: rockbot:rockbot-devices-api
+  name: Rockbot Devices API
+  description: Device status, screenshots, and remote reboot.
+  humanURL: https://developer.rockbot.com
+  baseURL: https://api.rockbot.com/v5
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/rockbot-devices-api-openapi.yml
+- aid: rockbot:rockbot-music-api
+  name: Rockbot Music API
+  description: Playback control and playlist overrides per zone.
+  humanURL: https://developer.rockbot.com
+  baseURL: https://api.rockbot.com/v5
+  tags:
+  - Music
+  properties:
+  - type: OpenAPI
+    url: openapi/rockbot-music-api-openapi.yml
+- aid: rockbot:rockbot-signage-api
+  name: Rockbot Signage API
+  description: Digital-signage campaigns and assets by group or zone.
+  humanURL: https://developer.rockbot.com
+  baseURL: https://api.rockbot.com/v5
+  tags:
+  - Signage
+  properties:
+  - type: OpenAPI
+    url: openapi/rockbot-signage-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/rockbot-agentic-access.yml
+- type: DomainSecurity
+  url: security/rockbot-domain-security.yml
+- type: OAuthScopes
+  url: scopes/rockbot-scopes.yml
+- type: Authentication
+  url: authentication/rockbot-authentication.yml
 - type: Website
-  url: http://rockbot.com
+  url: https://rockbot.com
+- type: DeveloperPortal
+  url: https://developer.rockbot.com
+- type: Documentation
+  url: https://developer.rockbot.com/api.html
+- type: APIReference
+  url: https://developer.rockbot.com/api.html
+- type: GettingStarted
+  url: https://developer.rockbot.com/start.html
+- type: Support
+  url: https://support.rockbot.com/hc/en-us
+- type: Blog
+  url: https://blog.rockbot.com
+- type: Pricing
+  url: https://rockbot.com/pricing
+- type: SignUp
+  url: https://buy.rockbot.com/trial
+- type: Login
+  url: https://rockbot.com/login
+- type: TermsOfService
+  url: https://rockbot.com/terms
+- type: PrivacyPolicy
+  url: https://rockbot.com/privacy
+- type: StatusPage
+  url: https://status.rockbot.com
+- type: Lifecycle
+  url: lifecycle/rockbot-lifecycle.yml
+- type: Conventions
+  url: conventions/rockbot-conventions.yml
+- type: ErrorCatalog
+  url: errors/rockbot-problem-types.yml
+- type: DataModel
+  url: data-model/rockbot-data-model.yml
+- type: Conformance
+  url: conformance/rockbot-conformance.yml
+- type: Overlay
+  url: overlays/rockbot-openapi-overlay.yaml
+- type: MCPServer
+  url: mcp/rockbot-mcp.yml
+- type: LLMsTxt
+  url: llms/rockbot-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1

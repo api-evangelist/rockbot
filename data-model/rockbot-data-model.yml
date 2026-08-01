@@ -1,0 +1,76 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/rockbot-openapi.yml
+notes: >-
+  Entity graph derived from the Rockbot v5 API surface (endpoint paths and the
+  group/zone scoping model). Field-level schemas are not published, so
+  relationships are inferred from resource nesting (zones own playlists/overrides;
+  groups and zones own campaigns and assets; devices belong to zones).
+entities:
+  - name: Group
+    description: A customer account grouping of zones (multi-location scope).
+  - name: Zone
+    description: A single location/venue where media plays; owns devices, playlists, campaigns, assets.
+  - name: Device
+    description: A player at a zone; exposes status, screenshots, and remote reboot.
+  - name: Playlist
+    description: A music playlist available to a zone.
+  - name: PlaylistOverride
+    description: A temporary playlist override applied to a zone.
+  - name: Campaign
+    description: An audio-messaging or signage campaign, scoped to a group or a zone; scheduled via iCal RRULE.
+  - name: Asset
+    description: An uploaded audio or signage file, scoped to a group or a zone, attachable to campaigns.
+  - name: PlaybackHistory
+    description: Zone-level playback records for music, messaging, and signage.
+  - name: ExportJob
+    description: An asynchronous history-export job producing a presigned JSONL download.
+relationships:
+  - from: Zone
+    to: Group
+    kind: belongs_to
+    via: group
+  - from: Device
+    to: Zone
+    kind: belongs_to
+    via: zone_id
+  - from: Playlist
+    to: Zone
+    kind: belongs_to
+    via: zone_id
+  - from: PlaylistOverride
+    to: Zone
+    kind: belongs_to
+    via: zone_id
+  - from: PlaylistOverride
+    to: Playlist
+    kind: has_one
+    via: playlist
+  - from: Campaign
+    to: Group
+    kind: belongs_to
+    via: group
+  - from: Campaign
+    to: Zone
+    kind: belongs_to
+    via: zone
+  - from: Campaign
+    to: Asset
+    kind: has_many
+    via: add_asset
+  - from: Asset
+    to: Group
+    kind: belongs_to
+    via: group
+  - from: Asset
+    to: Zone
+    kind: belongs_to
+    via: zone
+  - from: PlaybackHistory
+    to: Zone
+    kind: belongs_to
+    via: zone
+  - from: ExportJob
+    to: Group
+    kind: belongs_to
+    via: group

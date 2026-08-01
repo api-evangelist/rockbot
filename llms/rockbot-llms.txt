@@ -1,0 +1,39 @@
+# Rockbot
+
+> Rockbot is a unified in-location media platform for businesses — background music, audio messaging, digital signage, Rockbot TV, music videos, and retail-media advertising, controlled across many venues from one system. The Rockbot v5 REST API lets customers programmatically control music playback and playlist overrides per zone, run audio-messaging and signage campaigns by group or zone, upload and attach assets, check device status/screenshots and reboot players, and pull or export playback history. Auth is OAuth 2.0 client-credentials (24-hour bearer tokens); default rate limit 1 request/second.
+
+## APIs
+
+- [Rockbot API (v5)](https://developer.rockbot.com): REST API, base URL https://api.rockbot.com/v5
+- [Generated OpenAPI](https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/openapi/rockbot-openapi.yml): OpenAPI 3.0 generated from the public docs
+
+## Docs
+
+- [Developer Portal](https://developer.rockbot.com)
+- [API Reference](https://developer.rockbot.com/api.html)
+- [Getting Started / Authentication](https://developer.rockbot.com/start.html)
+- [Support / Help Center](https://support.rockbot.com/hc/en-us)
+- [Status Page](https://status.rockbot.com)
+- [Blog](https://blog.rockbot.com)
+
+## Auth
+
+- OAuth 2.0 Client Credentials grant. Email support@rockbot.com to request a CLIENT_ID and one-time CLIENT_SECRET.
+- Token endpoint: POST https://api.rockbot.com/v5/api-clients/token with {client_id, client_secret}
+- Send the returned token as `Authorization: Bearer ACCESS_TOKEN`. Tokens are valid 24 hours.
+
+## Artifacts
+
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/authentication/rockbot-authentication.yml)
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/conventions/rockbot-conventions.yml)
+- [Error / problem types](https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/errors/rockbot-problem-types.yml)
+- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/lifecycle/rockbot-lifecycle.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/data-model/rockbot-data-model.yml)
+- [MCP candidate tools](https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/mcp/rockbot-mcp.yml)
+
+## Company
+
+- [Website](https://rockbot.com)
+- [Pricing](https://rockbot.com/pricing)
+- [Free Trial](https://buy.rockbot.com/trial)
+- Backed by GV (Google Ventures)

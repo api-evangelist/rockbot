@@ -1,0 +1,13 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/rockbot-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/rockbot-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.rockbot.com/v5/api-clients/token
+  description: 'OAuth 2.0 Client Credentials grant. Exchange a CLIENT_ID/CLIENT_SECRET (issued
+    by Rockbot support) at the token endpoint for a 24-hour bearer ACCESS_TOKEN, then send it
+    as `Authorization: Bearer ACCESS_TOKEN`.'
+scopes: []

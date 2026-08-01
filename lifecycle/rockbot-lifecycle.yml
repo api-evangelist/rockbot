@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.rockbot.com/api.html
+versioning:
+  scheme: uri-path
+  current: v5
+  base_path: /v5/ext
+  docs: https://developer.rockbot.com/api.html
+deprecation:
+  policy_url: null
+  sunset_header: null
+  notes: No formal deprecation/sunset policy is published.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.rockbot.com
+status_page_provider: Atlassian Statuspage (rockbot.statuspage.io)
+deprecated_operations: []

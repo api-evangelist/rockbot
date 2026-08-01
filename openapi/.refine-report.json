@@ -1,0 +1,24 @@
+{
+  "provider": "rockbot",
+  "sources": [
+    "rockbot-audio-messaging-api-openapi.yml",
+    "rockbot-auth-api-openapi.yml",
+    "rockbot-data-api-openapi.yml",
+    "rockbot-devices-api-openapi.yml",
+    "rockbot-music-api-openapi.yml",
+    "rockbot-signage-api-openapi.yml"
+  ],
+  "outputs": [
+    "rockbot-audio-messaging-api-openapi.yml",
+    "rockbot-auth-api-openapi.yml",
+    "rockbot-data-api-openapi.yml",
+    "rockbot-devices-api-openapi.yml",
+    "rockbot-music-api-openapi.yml",
+    "rockbot-signage-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
