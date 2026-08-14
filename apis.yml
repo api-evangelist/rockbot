@@ -19,20 +19,27 @@ x-backed-by:
 x-tier: stub
 x-tier-reason: portfolio-lead
 accessModel:
-  pricing: unknown
-  onboarding: self-serve
-  trial: false
+  pricing: paid
+  onboarding: request
+  trial: true
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Paid product; API access on request
+  confidence: high
   source:
   - authentication
-  generated: '2026-07-22'
-  method: derived
+  - plans
+  note: >-
+    Product pricing is published per zone from $25/mo (rockbot.com/pricing) and a
+    free trial is offered at buy.rockbot.com/trial, but API access itself is not
+    self-serve: it is granted only to existing customers who email
+    support@rockbot.com and are issued a CLIENT_ID plus a one-time CLIENT_SECRET.
+    No API-specific price is published.
+  generated: '2026-08-13'
+  method: searched
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 image: https://cdn.sanity.io/images/6h2uzio7/production/f258140dd891894dc1e27722af21f29a7c8c33e5-1581x1581.png
 tags:
 - Company
@@ -159,12 +166,28 @@ common:
   url: overlays/rockbot-openapi-overlay.yaml
 - type: MCPServer
   url: mcp/rockbot-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/rockbot-tool-crosswalk.yml
 - type: LLMsTxt
   url: llms/rockbot-llms.txt
 - type: AgentSkill
   url: skills/_index.yml
+- type: WellKnown
+  url: well-known/rockbot-well-known.yml
+- type: Packages
+  url: packages/rockbot-packages.yml
+- type: Plans
+  url: plans/rockbot-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/rockbot-rate-limits.yml
+- type: TrustCenter
+  url: security/rockbot-trust-center.yml
+- type: Compliance
+  url: https://trust.rockbot.com
+- type: GitHubOrganization
+  url: https://github.com/rockbot-inc
 x-enrichment:
-  date: '2026-07-21'
+  date: '2026-08-13'
   status: enriched
-  artifacts_added: 17
+  artifacts_added: 9
   pass: local-v1
