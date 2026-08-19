@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rockbot Audio Messaging Auth API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.rockbot.com/v5/api-clients/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Exchange client credentials for an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/api-clients/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange a CLIENT_ID / CLIENT_SECRET pair (issued by Rockbot support) for a bearer ACCESS_TOKEN. Tokens are valid for 24 hours."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

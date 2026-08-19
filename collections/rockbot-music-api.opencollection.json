@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rockbot Audio Messaging Music API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.rockbot.com/v5/api-clients/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Music",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve current playback state and queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/music/now_playing"
+          },
+          "docs": "Retrieve current playback state and queue"
+        },
+        {
+          "info": {
+            "name": "Advance to next track",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/music/skip"
+          },
+          "docs": "Limited to 6 skips per hour."
+        },
+        {
+          "info": {
+            "name": "Resume music playback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/music/start"
+          },
+          "docs": "Resume music playback"
+        },
+        {
+          "info": {
+            "name": "Halt music playback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/music/stop"
+          },
+          "docs": "Halt music playback"
+        },
+        {
+          "info": {
+            "name": "Adjust volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/music/volume",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adjust volume"
+        },
+        {
+          "info": {
+            "name": "List available playlists for a zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/zones/:zone_id/playlists",
+            "params": [
+              {
+                "name": "zone_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Page size for paginated results."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based offset for paginated results."
+              }
+            ]
+          },
+          "docs": "List available playlists for a zone"
+        },
+        {
+          "info": {
+            "name": "View active playlist overrides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/zones/:zone_id/playlists/override",
+            "params": [
+              {
+                "name": "zone_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "View active playlist overrides"
+        },
+        {
+          "info": {
+            "name": "Set a temporary playlist override",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/zones/:zone_id/playlists/override",
+            "params": [
+              {
+                "name": "zone_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set a temporary playlist override"
+        },
+        {
+          "info": {
+            "name": "Remove all playlist overrides for a zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/zones/:zone_id/playlists/override",
+            "params": [
+              {
+                "name": "zone_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove all playlist overrides for a zone"
+        },
+        {
+          "info": {
+            "name": "Delete a specific playlist override",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/zones/:zone_id/playlists/override/:override_id",
+            "params": [
+              {
+                "name": "zone_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "override_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific playlist override"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,14 +1,36 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: searched
-source: https://developer.rockbot.com/api.html
+source: >-
+  https://developer.rockbot.com/api.html,
+  https://developer.rockbot.com/start.html, plus live probes of
+  https://api.rockbot.com/v5 (2026-08-13)
 api: openapi/rockbot-openapi.yml
+surfaces:
+  - name: REST v5
+    base: https://api.rockbot.com/v5
+    documented: true
+    auth: oauth2-client-credentials
+  - name: MCP
+    endpoint: https://api.rockbot.com/v5/mcp
+    documented: false
+    auth: oauth2 / oidc via https://auth.rockbot.com/application/o/mcp-server/
+    see: mcp/rockbot-mcp.yml
+    note: >-
+      Undocumented but live. Discovered via RFC 9728 protected-resource metadata.
+      Uses a DIFFERENT issuer than the REST API; tokens are not interchangeable.
 authentication:
   style: oauth2-client-credentials
   token: bearer
   header: 'Authorization: Bearer ACCESS_TOKEN'
   token_ttl_hours: 24
   token_endpoint: https://api.rockbot.com/v5/api-clients/token
+  token_request_body: >-
+    application/json {"client_id","client_secret"} — NOT the RFC 6749
+    form-encoded grant_type body. Off-the-shelf OAuth clients need adapting.
   onboarding: Email support@rockbot.com to request a CLIENT_ID and one-time CLIENT_SECRET.
+  scope_model: >-
+    Per-client, fixed at issuance ("Your credentials only grant access to the
+    scopes you requested"); no published scope names.
   see: authentication/rockbot-authentication.yml
 idempotency:
   supported: false
@@ -37,6 +59,22 @@ rate_limiting:
   operation_limits:
     - operation: skipTrack
       limit: 6 skips per hour
+  response_headers: []
+  response_headers_note: >-
+    No RateLimit-*, X-RateLimit-*, or Retry-After header is documented or was
+    observed on any live response. The runtime signal does not exist; a client
+    can only obey the documented ceiling.
+  caching_directive: >-
+    "Respect HTTP Cache-Control headers to reduce unnecessary requests to the
+    API." (developer.rockbot.com/start.html)
+  see: rate-limits/rockbot-rate-limits.yml
+request_tracing:
+  request_id_header: null
+  note: >-
+    No correlation/request-id header is documented or returned. Responses do
+    carry internal Debug-* counters (Debug-Sql-Reads, Debug-Redis-Gets,
+    Debug-L2-Cache-Hits, Debug-Handled-Errors), which are diagnostics, not a
+    trace id, and should not be depended on.
 scheduling:
   campaign_recurrence: iCal RRULE syntax
 async_jobs:
@@ -47,4 +85,30 @@ async_jobs:
   format: JSONL
 error_envelope:
   documented: false
-  notes: See errors/rockbot-problem-types.yml (derived from HTTP status semantics).
+  observed: true
+  format: vendor-json
+  content_type: application/json
+  root: error
+  fields:
+    - error_code
+    - description
+    - user_message
+    - status_code
+    - severity
+    - aux_data
+    - cause
+    - caller
+    - fields
+    - sampling_rate
+  rfc9457: false
+  caveats:
+    - >-
+      `status_code` inside the envelope does not always match the HTTP status —
+      invalid client credentials return HTTP 500 with an envelope severity of 500
+      for what is a client error.
+    - >-
+      `caller` leaks internal Go source paths (rockbot/api/routing.*). Observed,
+      not to be relied on.
+  notes: >-
+    Confirmed by live probe 2026-08-13, not derived. See
+    errors/rockbot-problem-types.yml for the observed codes.

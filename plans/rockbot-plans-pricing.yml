@@ -1,0 +1,110 @@
+generated: '2026-08-13'
+method: searched
+source: https://rockbot.com/pricing
+currency: USD
+billing_period: monthly
+plan_count: 4
+notes: >-
+  Rockbot publishes real, self-serve, per-unit list pricing — unusual for an
+  in-location media platform. The unit is a ZONE (one venue/area), not a seat or
+  an API call. Prices shown are the ANNUAL toggle (the page's default) and the
+  page footnotes "Pricing based on 12-month term." A Monthly toggle exists but is
+  rendered client-side and its values were not readable from the served HTML, so
+  monthly prices are recorded as null rather than guessed.
+  IMPORTANT: these are PRODUCT plans, not API plans. Rockbot publishes no
+  API-specific pricing, no metered API tier, and no per-request charge. API
+  access is granted on request to existing customers by emailing
+  support@rockbot.com (developer.rockbot.com/start.html) at no separately
+  published price, and is governed by a rate limit rather than a quota — see
+  rate-limits/rockbot-rate-limits.yml.
+unit: zone
+term: 12-month
+plans:
+  - name: Rockbot Music
+    price: 25
+    price_monthly_term: null
+    currency: USD
+    period: month
+    unit: zone
+    included:
+      - 100M+ fully-licensed songs
+      - Hands-free scheduling
+      - Control from any device
+    add_ons:
+      - name: Audio Messaging
+        price: 10
+        period: month
+      - name: Rockbot Request
+        price: 25
+        period: month
+    overage: null
+    signup: https://buy.rockbot.com/trial
+  - name: Rockbot Digital Signage
+    price: 25
+    price_monthly_term: null
+    currency: USD
+    period: month
+    unit: zone
+    included:
+      - Instant content updates
+      - Out-of-the-box widgets
+      - Centralized management
+    add_ons: []
+    overage: null
+  - name: Rockbot TV
+    price: 25
+    price_monthly_term: null
+    currency: USD
+    period: month
+    unit: zone
+    included:
+      - 65+ curated channels
+      - Automated scheduling
+      - Control from anywhere
+    add_ons:
+      - name: Music Videos
+        price: 75
+        period: month
+    overage: null
+  - name: Rockbot Music Videos
+    price: 75
+    price_monthly_term: null
+    currency: USD
+    period: month
+    unit: zone
+    included:
+      - Official Vevo music videos, no ads
+      - Curated channels by genre
+      - Fully licensed for business
+    add_ons:
+      - name: Rockbot TV
+        price: 25
+        period: month
+    constraints:
+      - Available on annual plans only
+    overage: null
+enterprise:
+  available: true
+  price: null
+  contact: https://rockbot.com/contact-sales
+  note: >-
+    "Enterprise solutions — Consult with our experts for solutions across any
+    number of locations." No published price.
+hardware:
+  - name: Rockbot Media Player
+    price_from: 175
+    currency: USD
+    billing: one-time
+    note: >-
+      Billed separately from subscription. "Starting at $175 one-time purchase."
+api_pricing:
+  published: false
+  metered: false
+  note: >-
+    No API price, API tier, call quota, or overage rate is published anywhere on
+    rockbot.com or developer.rockbot.com. API access is an entitlement of a
+    Rockbot subscription, requested by email.
+limits_attached_to_tiers: false
+limits_note: >-
+  The published API limit (1 request/second) is documented as a global default
+  for all API clients, not attached to any pricing tier.

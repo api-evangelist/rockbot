@@ -1,0 +1,236 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rockbot Audio Messaging Signage API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.rockbot.com/v5/api-clients/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List signage campaigns by group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaigns/group"
+          },
+          "docs": "List signage campaigns by group"
+        },
+        {
+          "info": {
+            "name": "List signage campaigns by zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaigns/zone"
+          },
+          "docs": "List signage campaigns by zone"
+        },
+        {
+          "info": {
+            "name": "Create a group-level signage campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/group"
+          },
+          "docs": "Create a group-level signage campaign"
+        },
+        {
+          "info": {
+            "name": "Archive a group-level signage campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/group"
+          },
+          "docs": "Archive a group-level signage campaign"
+        },
+        {
+          "info": {
+            "name": "Create a zone-level signage campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/zone"
+          },
+          "docs": "Create a zone-level signage campaign"
+        },
+        {
+          "info": {
+            "name": "Archive a zone-level signage campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/zone"
+          },
+          "docs": "Archive a zone-level signage campaign"
+        },
+        {
+          "info": {
+            "name": "Activate a signage campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/enable"
+          },
+          "docs": "Activate a signage campaign"
+        },
+        {
+          "info": {
+            "name": "Deactivate a signage campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/disable"
+          },
+          "docs": "Deactivate a signage campaign"
+        },
+        {
+          "info": {
+            "name": "Trigger immediate signage playback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/play"
+          },
+          "docs": "Trigger immediate signage playback"
+        },
+        {
+          "info": {
+            "name": "Associate a signage asset with a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/add_asset"
+          },
+          "docs": "Associate a signage asset with a campaign"
+        },
+        {
+          "info": {
+            "name": "Dissociate a signage asset from a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/signage/campaign/remove_asset"
+          },
+          "docs": "Dissociate a signage asset from a campaign"
+        },
+        {
+          "info": {
+            "name": "List signage files by group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/signage/assets/group"
+          },
+          "docs": "List signage files by group"
+        },
+        {
+          "info": {
+            "name": "List signage files by zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/signage/assets/zone"
+          },
+          "docs": "List signage files by zone"
+        },
+        {
+          "info": {
+            "name": "Upload a signage file (group-level)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/signage/asset/group",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a signage file (group-level)"
+        },
+        {
+          "info": {
+            "name": "Remove a signage file (group-level)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/signage/asset/group"
+          },
+          "docs": "Remove a signage file (group-level)"
+        },
+        {
+          "info": {
+            "name": "Upload a signage file (zone-level)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/signage/asset/zone",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a signage file (zone-level)"
+        },
+        {
+          "info": {
+            "name": "Remove a signage file (zone-level)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/signage/asset/zone"
+          },
+          "docs": "Remove a signage file (zone-level)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

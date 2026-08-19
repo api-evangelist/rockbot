@@ -1,0 +1,1 @@
+{"resource":"https://api.rockbot.com","authorization_servers":["https://auth.rockbot.com/application/o/mcp-server/"],"bearer_methods_supported":["header"],"resource_name":"Rockbot MCP"}

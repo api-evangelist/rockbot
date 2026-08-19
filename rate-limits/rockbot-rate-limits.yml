@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.rockbot.com/start.html
+limit_count: 2
+notes: >-
+  Rockbot documents its limits in prose on the Getting Started page and nowhere
+  else. The headline number is real and quotable, but the RUNTIME SIGNAL is
+  missing: no RateLimit-*, X-RateLimit-*, or Retry-After header was observed on
+  any live response, and the docs name none. An agent therefore has no way to
+  read remaining quota or a reset time — it can only obey the documented
+  1 req/sec ceiling and back off blindly. The one runtime hint Rockbot does give
+  is a documented request to honour standard HTTP Cache-Control headers.
+limits:
+  - scope: per-api-client
+    window: 1s
+    limit: 1
+    burst: null
+    quoted: 'By default, your API client can make 1 request per second.'
+    source: https://developer.rockbot.com/start.html
+    increase: >-
+      "Please contact support@rockbot.com if your app requires a higher request
+      limit." No self-serve tier upgrade is published.
+  - scope: per-zone-operation
+    operation: skipTrack
+    window: 1h
+    limit: 6
+    quoted: 'Maximum 6 skips per hour.'
+    source: https://developer.rockbot.com/api.html
+    note: >-
+      A product-level limit on the music-skip operation, independent of the
+      global request rate.
+response_headers:
+  documented: []
+  observed: []
+  observed_on:
+    - url: https://api.rockbot.com/v5/ext/devices/status
+      method: GET
+      http_status: 401
+      headers_seen:
+        - Vary
+        - Referrer-Policy
+        - Strict-Transport-Security
+        - Debug-Handled-Errors
+        - Debug-L2-Cache-Hits
+        - Debug-Redis-Gets
+        - Debug-Sql-Reads
+      note: >-
+        Probed 2026-08-13 unauthenticated. No RateLimit-*, X-RateLimit-*, or
+        Retry-After header present. Eight requests in rapid succession all
+        returned 401 and never a 429, so exhaustion behaviour could not be
+        observed anonymously.
+  note: >-
+    Rockbot exposes internal Debug-* counters (SQL reads/writes, Redis
+    gets/sets/clears, L2 cache hits) on every response but no standard
+    rate-limit headers. Recorded as an observation, not a recommendation.
+exhaustion:
+  status_code: 429
+  status_code_confidence: derived
+  status_code_note: >-
+    429 is the modelled value in openapi/ and errors/rockbot-problem-types.yml.
+    Rockbot does not document the status returned on exhaustion and it was not
+    observed live, so this is a derivation from HTTP semantics, not a quoted fact.
+  retry_after: null
+  error_envelope: errors/rockbot-problem-types.yml
+caching:
+  directive: >-
+    "Respect HTTP Cache-Control headers to reduce unnecessary requests to the
+    API."
+  source: https://developer.rockbot.com/start.html

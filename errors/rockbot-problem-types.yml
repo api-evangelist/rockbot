@@ -1,23 +1,122 @@
-generated: '2026-07-21'
-method: derived
-source: openapi/rockbot-openapi.yml
-format: http-status
+generated: '2026-08-13'
+method: probed
+source: live unauthenticated requests to https://api.rockbot.com/v5/ (2026-08-13)
+format: vendor-envelope
 notes: >-
-  Rockbot does not publish a structured error-code reference. These problem
-  types are derived from the documented HTTP semantics (bearer auth + a default
-  1 request/second rate limit) and the responses modeled in the generated
-  OpenAPI. Titles/remediation are conservative; not confirmed against a docs
-  error registry.
+  UPGRADED from derived to probed. The first round modelled these from HTTP
+  semantics because Rockbot publishes no error reference. This round observed the
+  REAL envelope by making unauthenticated and malformed requests against the live
+  v5 API, which returns a consistent vendor-specific JSON error object — NOT RFC
+  9457 problem+json. The envelope, the field names, and the error_code values
+  below are quoted from actual responses. Rockbot still publishes no error-code
+  registry, so this catalog covers only the codes that can be triggered without
+  credentials; authenticated 4xx/5xx codes are unknown.
+envelope:
+  content_type: application/json
+  root: error
+  fields:
+    - name: error_code
+      type: integer
+      note: >-
+        Rockbot's own numeric code, independent of the HTTP status. 0 appears to
+        mean "no specific code" (generic routing errors).
+    - name: description
+      type: string
+      note: Developer-facing detail. May embed validation messages verbatim.
+    - name: user_message
+      type: string
+      note: End-user-safe message, safe to surface in a UI.
+    - name: status_code
+      type: integer
+      note: >-
+        Mirrors the intended HTTP status. NOT always equal to the transport
+        status — see the invalid-credentials case below.
+    - name: severity
+      type: integer
+      note: 'Internal severity band (200 observed on 400s, 500 on auth failures).'
+    - name: aux_data
+      type: string
+      note: 'Short machine tag, e.g. INVALID_AUTH, parameter.'
+    - name: cause
+      type: object|array
+      note: Nested underlying error; frequently empty.
+    - name: caller
+      type: string
+      note: >-
+        LEAKS INTERNAL SOURCE PATHS, e.g. "rockbot/api/routing.FormatErrorResponse"
+        and "rockbot/api/routing.GetValidatedInputParams". Recorded as observed;
+        this is information disclosure a consumer should not depend on.
+    - name: fields
+      type: object
+      note: 'Field-level validation map, e.g. {"Missing Parameter": "ClientID"}.'
+    - name: sampling_rate
+      type: number
+  example: >-
+    {"error":{"error_code":25,"description":"Missing authkey/authToken",
+    "user_message":"Oops, something went wrong. ...","status_code":401,
+    "severity":500,"aux_data":"INVALID_AUTH","sampling_rate":0}}
 problems:
   - status: 401
-    title: Unauthorized
+    error_code: 25
+    title: Missing authkey/authToken
+    aux_data: INVALID_AUTH
     meaning: Missing, expired, or invalid bearer access token.
     remediation: >-
       Obtain a fresh token from POST /v5/api-clients/token (tokens expire after
       24 hours) and send it as `Authorization: Bearer ACCESS_TOKEN`.
-    source_operation: openapi/rockbot-openapi.yml#getNowPlaying
+    observed: true
+    observed_on: GET https://api.rockbot.com/v5/ext/devices/status
+    source_operation: openapi/rockbot-devices-api-openapi.yml#getDeviceStatus
+  - status: 400
+    error_code: 6
+    title: Missing Parameter
+    aux_data: parameter
+    meaning: >-
+      A required request field failed validation. The `fields` map names the
+      offending field and `description` carries the raw validator message.
+    remediation: Supply every required field named in `fields` and retry.
+    observed: true
+    observed_on: 'POST https://api.rockbot.com/v5/api-clients/token with body {}'
+    source_operation: openapi/rockbot-auth-api-openapi.yml#createAccessToken
+  - status: 500
+    error_code: 8
+    title: invalid client
+    meaning: >-
+      Client credentials were rejected at the token endpoint. NOTE THE DEFECT:
+      Rockbot returns HTTP 500 (and severity 500) for what is a client error —
+      an invalid CLIENT_ID/CLIENT_SECRET should be 401 or 400. An agent using
+      status-class retry logic will treat a permanently-bad credential as a
+      transient server fault and retry forever.
+    remediation: >-
+      Do not retry. Re-check CLIENT_ID/CLIENT_SECRET, or request new credentials
+      from support@rockbot.com.
+    observed: true
+    observed_on: >-
+      POST https://api.rockbot.com/v5/api-clients/token with bogus credentials
+    source_operation: openapi/rockbot-auth-api-openapi.yml#createAccessToken
+  - status: 404
+    error_code: 0
+    title: Not Found
+    meaning: No route matches the requested path under /v5.
+    remediation: Check the path against https://developer.rockbot.com/api.html.
+    observed: true
+    observed_on: GET https://api.rockbot.com/v5/nope
   - status: 429
+    error_code: null
     title: Too Many Requests
-    meaning: Rate limit exceeded (default 1 request per second; skipTrack additionally 6/hour).
-    remediation: Throttle to the documented limit or contact support for a higher limit.
-    source_operation: openapi/rockbot-openapi.yml#skipTrack
+    meaning: >-
+      Rate limit exceeded (default 1 request per second; skipTrack additionally
+      6/hour).
+    remediation: >-
+      Throttle to the documented limit or contact support@rockbot.com for a
+      higher limit. No Retry-After header is returned.
+    observed: false
+    observed_note: >-
+      DERIVED, not observed. Eight rapid unauthenticated requests never produced
+      a 429, and Rockbot does not document the exhaustion status.
+    source_operation: openapi/rockbot-music-api-openapi.yml#skipTrack
+rfc9457:
+  conforms: false
+  evidence: >-
+    Responses are application/json with a vendor `error` object; no
+    application/problem+json, no `type`/`title`/`detail`/`instance` members.

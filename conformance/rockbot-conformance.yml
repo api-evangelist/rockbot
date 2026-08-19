@@ -1,28 +1,129 @@
-generated: '2026-07-21'
-method: derived
-source: openapi/rockbot-openapi.yml
+generated: '2026-08-13'
+method: probed
+source: >-
+  live probes of api.rockbot.com + auth.rockbot.com (2026-08-13),
+  https://developer.rockbot.com/start.html, https://trust.rockbot.com,
+  openapi/*.yml
+notes: >-
+  UPGRADED from derived to probed. The first round asserted these from the
+  generated OpenAPI alone. This round tested them: the error envelope was pulled
+  off live responses, and the OIDC/RFC 9728/RFC 8414 entries are new discoveries
+  from Rockbot's previously-unknown MCP authorization surface.
 standards:
   - id: oauth2
     conforms: true
-    evidence: OpenAPI securityScheme type oauth2, clientCredentials flow (developer.rockbot.com/start.html)
+    evidence: >-
+      Both surfaces are OAuth 2.0. REST uses clientCredentials against
+      https://api.rockbot.com/v5/api-clients/token; MCP delegates to an OAuth
+      authorization server at auth.rockbot.com.
   - id: oauth2-client-credentials
     conforms: true
-    evidence: Documented Client Credentials grant with token endpoint /v5/api-clients/token
-  - id: oidc
+    evidence: >-
+      Documented Client Credentials grant with token endpoint
+      /v5/api-clients/token (developer.rockbot.com/start.html).
+  - id: rfc6749-token-request-encoding
     conforms: false
-    evidence: No OpenID Connect discovery or id_token documented
+    evidence: >-
+      The REST token endpoint takes application/json {"client_id","client_secret"}
+      rather than the RFC 6749 form-encoded grant_type=client_credentials body.
+      Standard OAuth client libraries will not interoperate unmodified.
+  - id: oidc
+    conforms: true
+    evidence: >-
+      NEW THIS ROUND. https://auth.rockbot.com/application/o/mcp-server/.well-known/openid-configuration
+      returns 200 with a full OpenID Connect Discovery 1.0 document (issuer,
+      authorization/token/userinfo/jwks endpoints, RS256 id_token signing).
+      Scoped to the MCP surface only — the v5 REST API has no OIDC discovery.
+  - id: rfc8414-authorization-server-metadata
+    conforms: true
+    evidence: >-
+      The same metadata is served at the RFC 8414 path-inserted location
+      https://auth.rockbot.com/.well-known/oauth-authorization-server/application/o/mcp-server/ (200).
+  - id: rfc9728-protected-resource-metadata
+    conforms: true
+    evidence: >-
+      https://api.rockbot.com/.well-known/oauth-protected-resource returns 200
+      with resource, authorization_servers, bearer_methods_supported and
+      resource_name "Rockbot MCP"; the 401 challenge on /v5/mcp carries a
+      WWW-Authenticate Bearer resource_metadata parameter pointing at the
+      path-scoped document. This is textbook MCP authorization discovery.
+  - id: rfc7636-pkce
+    conforms: true
+    evidence: 'code_challenge_methods_supported: ["plain","S256"] on the MCP issuer.'
+    caveat: >-
+      `plain` is still advertised alongside S256, and the deprecated implicit and
+      password grants remain enabled on the provider.
+  - id: mcp
+    conforms: true
+    evidence: >-
+      A live remote MCP server responds at https://api.rockbot.com/v5/mcp
+      (HTTP 401 + Bearer challenge on POST tools/list). Protocol version could
+      not be negotiated without a token, so the MCP spec revision is unknown.
+    caveat: >-
+      The server is entirely undocumented — absent from the developer portal,
+      the help center, and rockbot.com/llms.txt.
   - id: rfc9457-problem-details
     conforms: false
-    evidence: No application/problem+json error envelope documented
+    evidence: >-
+      CONFIRMED BY PROBE, not assumed. Live errors return application/json with a
+      vendor `error` object (error_code, description, user_message, status_code,
+      severity, aux_data, caller), never application/problem+json and never
+      type/title/detail/instance.
+  - id: http-status-semantics
+    conforms: false
+    evidence: >-
+      POST /v5/api-clients/token with invalid credentials returns HTTP 500 with
+      error_code 8 "invalid client". A rejected credential is a client error;
+      returning 5xx makes a permanent failure look retryable.
   - id: pagination-limit-offset
     conforms: true
-    evidence: Documented limit/offset params with total_count/page_size/page/page_count/data envelope
+    evidence: >-
+      Documented limit/offset params with a
+      total_count/page_size/page/page_count/data envelope.
   - id: rfc8594-sunset
     conforms: false
-    evidence: No Sunset/Deprecation header policy published
+    evidence: No Sunset/Deprecation header policy published.
   - id: idempotency
     conforms: false
-    evidence: No idempotency-key mechanism documented
+    evidence: >-
+      No idempotency-key header or parameter is documented on any write
+      operation. No Idempotency pointer is wired in apis.yml.
   - id: ical-rrule
     conforms: true
-    evidence: Campaign scheduling uses iCal RRULE syntax (RFC 5545)
+    evidence: Campaign scheduling uses iCal RRULE syntax (RFC 5545).
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: >-
+      No security.txt on rockbot.com, api.rockbot.com, or developer.rockbot.com.
+      The 200 at auth.rockbot.com/.well-known/security.txt is the authentik
+      vendor default (contact security@goauthentik.io, Expires 1 Jan 2024 —
+      already elapsed, so non-conformant on its own terms) and is not credited.
+      See security/rockbot-vulnerability-disclosure.yml.
+  - id: llmstxt
+    conforms: true
+    evidence: >-
+      https://rockbot.com/llms.txt returns 200 with a well-formed llms.txt (H1,
+      blockquote summary, sectioned link lists). Saved verbatim to
+      llms/rockbot-llms.txt.
+    caveat: >-
+      It is a marketing/product document — it never mentions the v5 API, the
+      developer portal, or the MCP server, so an agent reading it would not learn
+      Rockbot is programmable.
+  - id: a2a
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json return 404 on
+      rockbot.com, api.rockbot.com, developer.rockbot.com and auth.rockbot.com.
+      No agent card exists, so none was authored.
+compliance:
+  program_published: true
+  trust_center: https://trust.rockbot.com
+  certifications:
+    - name: SOC 2
+      status: claimed
+      source: https://rockbot.com/llms.txt
+      evidence: >-
+        Rockbot states "SOC 2 compliant." in its own published llms.txt, and
+        operates a Vanta trust center at trust.rockbot.com (HTTP 200). The report
+        itself is gated and the Type/period is not published.
+  see: security/rockbot-trust-center.yml

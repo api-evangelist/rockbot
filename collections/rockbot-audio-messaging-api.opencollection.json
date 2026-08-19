@@ -1,0 +1,236 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rockbot Audio Messaging API",
+    "version": "5.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.rockbot.com/v5/api-clients/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audio Messaging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List audio-messaging campaigns by group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaigns/group"
+          },
+          "docs": "List audio-messaging campaigns by group"
+        },
+        {
+          "info": {
+            "name": "List audio-messaging campaigns by zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaigns/zone"
+          },
+          "docs": "List audio-messaging campaigns by zone"
+        },
+        {
+          "info": {
+            "name": "Create a group-level audio-messaging campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/group"
+          },
+          "docs": "Create a group-level audio-messaging campaign"
+        },
+        {
+          "info": {
+            "name": "Archive a group-level audio-messaging campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/group"
+          },
+          "docs": "Archive a group-level audio-messaging campaign"
+        },
+        {
+          "info": {
+            "name": "Create a zone-level audio-messaging campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/zone"
+          },
+          "docs": "Create a zone-level audio-messaging campaign"
+        },
+        {
+          "info": {
+            "name": "Archive a zone-level audio-messaging campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/zone"
+          },
+          "docs": "Archive a zone-level audio-messaging campaign"
+        },
+        {
+          "info": {
+            "name": "Activate an audio-messaging campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/enable"
+          },
+          "docs": "Activate an audio-messaging campaign"
+        },
+        {
+          "info": {
+            "name": "Deactivate an audio-messaging campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/disable"
+          },
+          "docs": "Deactivate an audio-messaging campaign"
+        },
+        {
+          "info": {
+            "name": "Trigger immediate campaign playback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/play"
+          },
+          "docs": "Trigger immediate campaign playback"
+        },
+        {
+          "info": {
+            "name": "Associate an asset with a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/add_asset"
+          },
+          "docs": "Associate an asset with a campaign"
+        },
+        {
+          "info": {
+            "name": "Dissociate an asset from a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/messaging/campaign/remove_asset"
+          },
+          "docs": "Dissociate an asset from a campaign"
+        },
+        {
+          "info": {
+            "name": "List audio files by group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/messaging/assets/group"
+          },
+          "docs": "List audio files by group"
+        },
+        {
+          "info": {
+            "name": "List audio files by zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rockbot.com/v5/ext/messaging/assets/zone"
+          },
+          "docs": "List audio files by zone"
+        },
+        {
+          "info": {
+            "name": "Upload an audio file (group-level)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/messaging/asset/group",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an audio file (group-level)"
+        },
+        {
+          "info": {
+            "name": "Remove an audio file (group-level)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/messaging/asset/group"
+          },
+          "docs": "Remove an audio file (group-level)"
+        },
+        {
+          "info": {
+            "name": "Upload an audio file (zone-level)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rockbot.com/v5/ext/messaging/asset/zone",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an audio file (zone-level)"
+        },
+        {
+          "info": {
+            "name": "Remove an audio file (zone-level)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rockbot.com/v5/ext/messaging/asset/zone"
+          },
+          "docs": "Remove an audio file (zone-level)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

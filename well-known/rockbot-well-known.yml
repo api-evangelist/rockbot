@@ -1,14 +1,97 @@
-generated: '2026-07-21'
-method: searched
+generated: '2026-08-13'
+method: probed
+source: live probes of every apis.yml + OpenAPI servers[] host
+notes: >-
+  Second round. The first round (2026-07-21) recorded 404 on every path and wired
+  no pointer. This round found a REAL document: api.rockbot.com serves RFC 9728
+  OAuth 2.0 Protected Resource Metadata, both at the host root and path-scoped to
+  /v5/mcp, naming "Rockbot MCP" and delegating to an authentik authorization
+  server at auth.rockbot.com. That is how the previously-undocumented Rockbot MCP
+  server was discovered (see mcp/rockbot-mcp.yml). A WellKnown pointer is now
+  wired because at least one path returns a real machine-readable document.
 hosts:
   - host: https://api.rockbot.com
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: application/json
+        file: rockbot-oauth-protected-resource.json
+        spec: RFC 9728
+        note: 'resource=https://api.rockbot.com; resource_name="Rockbot MCP"'
+      - path: /.well-known/oauth-protected-resource/v5/mcp
+        status: 200
+        content_type: application/json
+        file: rockbot-mcp-oauth-protected-resource.json
+        spec: RFC 9728
+        note: >-
+          Path-scoped metadata returned by the WWW-Authenticate challenge on
+          POST https://api.rockbot.com/v5/mcp.
+      - { path: /.well-known/security.txt, status: 404 }
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
+      - { path: /.well-known/agent-card.json, status: 404 }
+      - { path: /.well-known/agent.json, status: 404 }
+  - host: https://auth.rockbot.com
+    note: >-
+      Rockbot-operated authentik (X-Authentik-Version 2026.5.4) identity host,
+      named as the authorization server by the protected-resource metadata above.
+    documents:
+      - path: /application/o/mcp-server/.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: rockbot-mcp-authorization-server.json
+        spec: OpenID Connect Discovery 1.0 / RFC 8414
+        note: >-
+          Issuer https://auth.rockbot.com/application/o/mcp-server/ — grants
+          authorization_code, refresh_token, client_credentials, device_code;
+          PKCE S256; scopes openid, email, profile.
+      - path: /.well-known/oauth-authorization-server/application/o/mcp-server/
+        status: 200
+        note: Same document served at the RFC 8414 path-inserted location.
+      - path: /.well-known/security.txt
+        status: 200
+        credited: false
+        file: null
+        note: >-
+          NOT CREDITED, and deliberately not saved. This 200 is the authentik
+          software's VENDOR DEFAULT file, not a Rockbot disclosure policy:
+          Contact is mailto:security@goauthentik.io, Policy is
+          docs.goauthentik.io/security/policy, and Expires is 1 Jan 2024 (already
+          elapsed). It names the vendor, not this provider, so no SecurityTxt and
+          no Security pointer is wired from it.
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/agent-card.json, status: 404 }
+      - { path: /.well-known/agent.json, status: 404 }
+  - host: https://rockbot.com
     documents:
       - { path: /.well-known/security.txt, status: 404 }
       - { path: /.well-known/openid-configuration, status: 404 }
       - { path: /.well-known/oauth-authorization-server, status: 404 }
-  - host: https://rockbot.com
+      - { path: /.well-known/oauth-protected-resource, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
+      - { path: /.well-known/agent-card.json, status: 404 }
+      - { path: /.well-known/agent.json, status: 404 }
+      - path: /llms.txt
+        status: 200
+        content_type: text/plain
+        file: ../llms/rockbot-llms.txt
+        note: >-
+          Not a /.well-known/ path, recorded here because it was found in the same
+          sweep. Saved verbatim; see llms/rockbot-llms.txt.
+  - host: https://developer.rockbot.com
+    note: >-
+      VitePress docs site. Every /.well-known/* path returns HTTP 404 with the
+      site's HTML 404 shell — no soft-200 false positives here.
     documents:
       - { path: /.well-known/security.txt, status: 404 }
-notes: >-
-  No /.well-known/ discovery documents were served (all 404). Recorded to avoid
-  re-probing. No WellKnown/SecurityTxt pointer is wired since nothing was found.
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/oauth-protected-resource, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
+      - { path: /.well-known/agent-card.json, status: 404 }
+      - { path: /.well-known/agent.json, status: 404 }
+      - { path: /llms.txt, status: 404 }

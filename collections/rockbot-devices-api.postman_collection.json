@@ -1,0 +1,549 @@
+{
+  "item": [
+    {
+      "id": "c3de0ba2-6027-42dd-883b-4d091dfbcfc5",
+      "name": "Devices",
+      "description": {
+        "content": "Device status, screenshots, and remote reboot.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4997e228-d49a-4797-bd69-b7fbe914dfce",
+          "name": "Retrieve device operational metrics and configuration",
+          "request": {
+            "name": "Retrieve device operational metrics and configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "devices",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aee97c3d-01b9-479a-bd09-d32b2fbafe90",
+              "name": "Success. Returns a JSON object or array.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "833f2df8-3bcf-4407-9be9-d00a7efdc707",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a623be0-6455-427b-9a5a-7c22682d3c54",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5b24b71-90fd-4678-9ea9-f47e41fda9b9",
+          "name": "Fetch recent screen captures for a zone",
+          "request": {
+            "name": "Fetch recent screen captures for a zone",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "devices",
+                "screenshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "zone_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e422aa52-fce9-4360-82bb-99b9f3aea2a5",
+              "name": "Success. Returns a JSON object or array.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "screenshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zone_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57d9680f-107a-44a1-9527-477e17700a30",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "screenshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zone_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5b2db287-181a-4f54-b683-44d0d467f9fd",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "screenshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zone_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6cf826ac-9114-4309-ae4a-611e6ce2351d",
+          "name": "Initiate remote device reboot",
+          "request": {
+            "name": "Initiate remote device reboot",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "devices",
+                "reboot"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7fd5b989-758e-42f4-baf2-0c6e0b5f01b5",
+              "name": "Success. Returns a JSON object or array.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "reboot"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0914ec80-f14a-41ee-9211-d8e4b4d16068",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "reboot"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "351b4c6f-2f2a-4786-af8b-0a15df0b732f",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "devices",
+                    "reboot"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rockbot.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.rockbot.com/v5/api-clients/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1b1705a6-00df-406e-9d3b-0453ef42565b",
+    "name": "Rockbot Audio Messaging Devices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Rockbot's external REST API (v5) lets business customers programmatically control in-location media across their zones and device groups: music playback, audio messaging campaigns, digital-signage campaigns, device status/remote control, and playback history/analytics exports. This OpenAPI description was faithfully generated by the API Evangelist enrichment pipeline from the public documentation at https://developer.rockbot.com — Rockbot does not publish a machine-readable spec. Request/response body schemas are modeled loosely (free-form JSON) where the documentation does not enumerate fields; endpoints, methods, auth, pagination, and rate limits are captured as documented.\n\nContact Support:\n Name: Rockbot API Support\n Email: support@rockbot.com",
+      "type": "text/plain"
+    }
+  }
+}

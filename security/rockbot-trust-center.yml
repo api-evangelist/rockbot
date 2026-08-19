@@ -1,0 +1,47 @@
+generated: '2026-08-13'
+method: probed
+source: https://trust.rockbot.com
+trust_center:
+  present: true
+  url: https://trust.rockbot.com
+  platform: Vanta
+  title: Rockbot Trust Center
+  http_status: 200
+  content_type: text/html
+  fetched: '2026-08-13'
+  evidence: >-
+    Served on Rockbot's own subdomain with <link rel="canonical"
+    href="https://trust.rockbot.com">, <title>Rockbot Trust Center</title>, and
+    Vanta's trust-center bundle (assets.vanta.com, data-slugid
+    b79pqf7dt3lsj8q1tltzgx). Confirmed Rockbot-controlled, not a look-alike.
+certifications:
+  - name: SOC 2
+    level: null
+    status: claimed
+    source: https://rockbot.com/llms.txt
+    evidence: >-
+      Rockbot states "SOC 2 compliant." verbatim in the summary blockquote of its
+      own published llms.txt. Recorded as a PROVIDER CLAIM: the report itself is
+      gated behind the Vanta trust center's request flow, and neither the Type
+      (I or II) nor the audit period is published anywhere readable.
+readable: false
+readable_note: >-
+  The trust center is a client-rendered Vanta single-page app. The served HTML
+  contains no certification names, no framework list, no document index, and no
+  embedded JSON — every control, report, and subprocessor is fetched by
+  JavaScript after load. Nothing beyond the SOC 2 claim above could be read
+  machine-side, so the certification list here is deliberately short rather than
+  padded. A human with a browser would see more.
+documents_gated: true
+documents_gated_note: >-
+  Vanta trust centers place audit reports behind an NDA/email request form. No
+  document was retrievable anonymously.
+subprocessors:
+  published: null
+  note: Not readable from the served HTML.
+security_contact:
+  email: null
+  note: >-
+    No security@rockbot.com contact, no /.well-known/security.txt on any Rockbot
+    host, and no vulnerability-disclosure or bug-bounty page was found — see
+    security/rockbot-vulnerability-disclosure.yml.

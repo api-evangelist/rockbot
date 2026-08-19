@@ -1,0 +1,194 @@
+{
+  "item": [
+    {
+      "id": "9bc75bab-8f18-43d2-9aa0-50abaa502ad3",
+      "name": "Auth",
+      "description": {
+        "content": "OAuth 2.0 client-credentials token exchange.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "904b24a6-727b-4f12-9260-16d485877b13",
+          "name": "Exchange client credentials for an access token",
+          "request": {
+            "name": "Exchange client credentials for an access token",
+            "description": {
+              "content": "Exchange a CLIENT_ID / CLIENT_SECRET pair (issued by Rockbot support) for a bearer ACCESS_TOKEN. Tokens are valid for 24 hours.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api-clients",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dcc3f2a7-2294-4089-897f-98d8a729c199",
+              "name": "Access token issued.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api-clients",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 8793\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ed79022-2661-47d9-aabe-ddf4d4d3ef16",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api-clients",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rockbot.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.rockbot.com/v5/api-clients/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a8b8c4e3-6b08-4500-b711-23e371046769",
+    "name": "Rockbot Audio Messaging Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Rockbot's external REST API (v5) lets business customers programmatically control in-location media across their zones and device groups: music playback, audio messaging campaigns, digital-signage campaigns, device status/remote control, and playback history/analytics exports. This OpenAPI description was faithfully generated by the API Evangelist enrichment pipeline from the public documentation at https://developer.rockbot.com — Rockbot does not publish a machine-readable spec. Request/response body schemas are modeled loosely (free-form JSON) where the documentation does not enumerate fields; endpoints, methods, auth, pagination, and rate limits are captured as documented.\n\nContact Support:\n Name: Rockbot API Support\n Email: support@rockbot.com",
+      "type": "text/plain"
+    }
+  }
+}

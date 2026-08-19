@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  npm registry search, pypi.org, rubygems.org, github.com/rockbot-inc,
+  developer.rockbot.com/start.html, developer.rockbot.com/api.html
+package_count: 0
+packages: []
+notes: >-
+  HONEST ZERO — Rockbot ships no first-party client library in any public
+  registry. The developer portal (start.html + api.html) documents raw curl only
+  and links to no SDK. No `SDKs` pointer is wired, because there is no SDK.
+searched:
+  - registry: npm
+    query: https://registry.npmjs.org/-/v1/search?text=rockbot
+    result: >-
+      No first-party package. Hits are unrelated third parties (e.g.
+      @sectersion/rockbot, a Minecraft Bedrock bot orchestrator).
+  - registry: pypi
+    query: https://pypi.org/pypi/rockbot/json
+    result: >-
+      "ROCKBOT" exists but is an unrelated third-party project (author "Sekkay",
+      home_page youtube.com). Not Rockbot, Inc.
+  - registry: rubygems
+    query: https://rubygems.org/api/v1/gems/rockbot.json
+    result: 'HTTP 404 — "This rubygem could not be found."'
+  - registry: github
+    query: https://api.github.com/orgs/rockbot-inc/repos
+    result: >-
+      The real Rockbot GitHub org is `rockbot-inc` (org name "Rockbot", blog
+      https://rockbot.com), and it holds 3 public repos — none of them an API
+      client. See github_org_repos below.
+  - registry: docs
+    query: https://developer.rockbot.com/start.html
+    result: >-
+      Getting Started shows a curl POST to /v5/api-clients/token and nothing
+      else. No SDK, no CLI, no code-sample tabs beyond bash.
+github_org: https://github.com/rockbot-inc
+github_org_repos:
+  - name: drysql
+    url: https://github.com/rockbot-inc/drysql
+    language: Go
+    fork: false
+    first_party: true
+    published_registry: false
+    version: null
+    published: null
+    description: >-
+      Reduces boilerplate around maintaining Go SQL connections. First-party
+      Rockbot code, but an internal Go utility — NOT a client for the Rockbot
+      API, so it is not an SDK and earns no SDK credit.
+    last_pushed: '2023-11-01'
+    note: >-
+      version/published are null because the library is not published to a module
+      registry with dated release metadata; it is consumed straight from the repo,
+      and the repo has not been pushed to since November 2023.
+  - name: go-json
+    url: https://github.com/rockbot-inc/go-json
+    language: Go
+    fork: true
+    first_party: false
+    version: null
+    published: null
+    description: Fork of a third-party fast JSON encoder/decoder for Go.
+    last_pushed: '2023-09-25'
+  - name: jsonpatch
+    url: https://github.com/rockbot-inc/jsonpatch
+    language: Go
+    fork: true
+    first_party: false
+    version: null
+    published: null
+    description: Fork of a third-party RFC 6902 JSON-patch library for Go.
+    last_pushed: '2025-07-10'
+mcp_distribution:
+  package: null
+  version: null
+  published: null
+  note: >-
+    Rockbot's MCP server (mcp/rockbot-mcp.yml) is REMOTE-ONLY — hosted at
+    https://api.rockbot.com/v5/mcp. There is no npx/stdio package to version, so
+    there is nothing for a registry to date. Checked npm and PyPI; nothing exists.

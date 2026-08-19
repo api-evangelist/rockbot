@@ -1,0 +1,1368 @@
+{
+  "item": [
+    {
+      "id": "34d61fde-72de-4a56-89d0-16374e93bcee",
+      "name": "Data",
+      "description": {
+        "content": "Playback history and asynchronous history exports.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c097f838-7a75-4b6d-851c-31a630f1f6f6",
+          "name": "Zone-level signage playback records",
+          "request": {
+            "name": "Zone-level signage playback records",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "data",
+                "signage",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Page size for paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Zero-based offset for paginated results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "356ff8f1-e7c4-4ebf-be61-55691ec3fd1e",
+              "name": "Paginated collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "signage",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_count\": 3318,\n  \"page_size\": 4303,\n  \"page\": 3864,\n  \"page_count\": 6877,\n  \"data\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": false,\n      \"key_1\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4592aa7a-f560-4704-b428-0c3e59dcc1ad",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "signage",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d7b9ebd0-0b47-48ce-9ffd-4d35d1ba0b73",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "signage",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a34b0d5d-03d0-498d-8b83-e8a77b23ac59",
+          "name": "Zone-level music playback records",
+          "request": {
+            "name": "Zone-level music playback records",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "data",
+                "music",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Page size for paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Zero-based offset for paginated results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd824da3-b4fa-4c69-b5a1-0d593902df20",
+              "name": "Paginated collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "music",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_count\": 9500,\n  \"page_size\": 9199,\n  \"page\": 5925,\n  \"page_count\": 8157,\n  \"data\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 6913.905992936408,\n      \"key_1\": 5382.137984698124\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d907f44-f733-4847-918f-46ee05c1132a",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "music",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b1437aee-8be4-4874-b46f-8e54da04f771",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "music",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cea96a9-9b24-4535-a39d-b67942327f31",
+          "name": "Zone-level messaging playback records",
+          "request": {
+            "name": "Zone-level messaging playback records",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "data",
+                "messaging",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Page size for paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Zero-based offset for paginated results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "030f801b-ce34-4b75-895b-a13915c1eb04",
+              "name": "Paginated collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "messaging",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_count\": 9500,\n  \"page_size\": 9199,\n  \"page\": 5925,\n  \"page_count\": 8157,\n  \"data\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 6913.905992936408,\n      \"key_1\": 5382.137984698124\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e20e7a8-0366-4024-afc1-2408387e567b",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "messaging",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ddb5f9f7-9c4b-4560-948d-a5ee65384c8c",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "messaging",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "136724ae-8f6d-47ca-b9e1-43f486712366",
+          "name": "Submit a group music-history export job",
+          "request": {
+            "name": "Submit a group music-history export job",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "data",
+                "music",
+                "history",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a69cd51b-f29a-4311-bd28-6cffd1019428",
+              "name": "Export job state.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "music",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"status\": \"string\",\n  \"url\": \"https://GiqxqAkAG.liodRLSUTude5OVS1Il3LB\",\n  \"expires_at\": \"1951-11-15T03:08:43.385Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6dd3ae22-fea4-4644-8536-c3bbf9d496f8",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "music",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a341ec9e-1f25-4c9b-aab9-03cf8e3a8178",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "music",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "868f6e1e-5419-4587-a796-1bced469125e",
+          "name": "Submit a group signage-history export job",
+          "request": {
+            "name": "Submit a group signage-history export job",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "data",
+                "signage",
+                "history",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "daa743e6-3895-4ab7-8bdf-c0d60917da1c",
+              "name": "Export job state.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "signage",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"status\": \"string\",\n  \"url\": \"https://GiqxqAkAG.liodRLSUTude5OVS1Il3LB\",\n  \"expires_at\": \"1951-11-15T03:08:43.385Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6fbf4d0-5e02-45b3-95e1-6e1b2e84aac1",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "signage",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0300931f-b03a-4019-bd40-e8db0b38b9ad",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "signage",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e368c7eb-ed79-4ca1-ad6a-1707d01ae45c",
+          "name": "Submit a group messaging-history export job",
+          "request": {
+            "name": "Submit a group messaging-history export job",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "data",
+                "messaging",
+                "history",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8978d486-5ed1-49d1-a87c-9bedcf90f83a",
+              "name": "Export job state.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "messaging",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"status\": \"string\",\n  \"url\": \"https://GiqxqAkAG.liodRLSUTude5OVS1Il3LB\",\n  \"expires_at\": \"1951-11-15T03:08:43.385Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "218130d2-35fc-4fc9-a94d-15687f18f98d",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "messaging",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6f316b4b-b5b8-4484-8dae-55a60c6b61c8",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "messaging",
+                    "history",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db63522c-6433-456d-9618-fe2bcc8e9422",
+          "name": "Poll asynchronous export job status",
+          "request": {
+            "name": "Poll asynchronous export job status",
+            "description": {},
+            "url": {
+              "path": [
+                "ext",
+                "data",
+                "history",
+                "exports",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c3edc22-2c93-461f-9390-dde87a63aee4",
+              "name": "Export job state.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "history",
+                    "exports",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"status\": \"string\",\n  \"url\": \"https://GiqxqAkAG.liodRLSUTude5OVS1Il3LB\",\n  \"expires_at\": \"1951-11-15T03:08:43.385Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8c6fdcd-30eb-49b6-9ace-3da2b0b7ca78",
+              "name": "Missing or invalid bearer access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "history",
+                    "exports",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67ea2ac3-555e-460f-86c2-dfb996606f84",
+              "name": "Rate limit exceeded. The default limit is 1 request per second.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ext",
+                    "data",
+                    "history",
+                    "exports",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rockbot.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.rockbot.com/v5/api-clients/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c7a4cbee-1a13-4be3-a212-90d5e61200e2",
+    "name": "Rockbot Audio Messaging Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Rockbot's external REST API (v5) lets business customers programmatically control in-location media across their zones and device groups: music playback, audio messaging campaigns, digital-signage campaigns, device status/remote control, and playback history/analytics exports. This OpenAPI description was faithfully generated by the API Evangelist enrichment pipeline from the public documentation at https://developer.rockbot.com — Rockbot does not publish a machine-readable spec. Request/response body schemas are modeled loosely (free-form JSON) where the documentation does not enumerate fields; endpoints, methods, auth, pagination, and rate limits are captured as documented.\n\nContact Support:\n Name: Rockbot API Support\n Email: support@rockbot.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,33 +1,139 @@
-generated: '2026-07-21'
-method: derived
-status: candidate
-source: openapi/rockbot-openapi.yml
+generated: '2026-08-13'
+method: probed
+status: published
+source: https://api.rockbot.com/.well-known/oauth-protected-resource
 notes: >-
-  No official hosted/remote Rockbot MCP server was found. This is a CANDIDATE
-  tool list derived from the Rockbot v5 OpenAPI operations, one tool per
-  operationId, as a starting point for an agent-native surface. All calls
-  require an OAuth 2.0 client-credentials bearer token.
+  UPGRADED 2026-08-13 from "derived candidate" to "probed, published". Rockbot
+  ships a REAL remote MCP server at https://api.rockbot.com/v5/mcp. It is not
+  mentioned anywhere on developer.rockbot.com, rockbot.com/llms.txt, or the
+  Zendesk help center — it was found via RFC 9728 OAuth Protected Resource
+  Metadata at https://api.rockbot.com/.well-known/oauth-protected-resource, which
+  advertises resource_name "Rockbot MCP" and an authentik authorization server.
+  The endpoint answers POST and GET with HTTP 401 `no bearer token` plus a
+  WWW-Authenticate challenge carrying path-scoped resource metadata, so the
+  server's existence, transport, and auth model are directly observed. The live
+  tool set is NOT: tools/list requires an OAuth bearer token, so the tools[]
+  below remain a DERIVED CANDIDATE list built from the operations in
+  openapi/_original/rockbot-openapi.yml. Real inputSchemas require authenticated
+  introspection — do not present these names as the server's published tools.
 server:
-  name: rockbot
+  name: Rockbot MCP
   transport: http
-  url: null
+  url: https://api.rockbot.com/v5/mcp
+  resource_metadata: https://api.rockbot.com/.well-known/oauth-protected-resource/v5/mcp
+deployment:
+  mode: remote
+  endpoint: https://api.rockbot.com/v5/mcp
+  auth: oauth
+  verified: probed
+  checked: '2026-08-13'
+  note: >-
+    Remote only. No stdio package, npx command, or MCP install snippet is
+    published by Rockbot anywhere we could find; nothing exists on npm or PyPI
+    (see packages/rockbot-packages.yml). An agent can reach this endpoint over
+    HTTPS today provided it can complete the OAuth flow.
+authorization:
+  spec: RFC 9728 OAuth 2.0 Protected Resource Metadata
+  resource: https://api.rockbot.com/v5/mcp
+  resource_name: Rockbot MCP
+  bearer_methods_supported: [header]
+  authorization_servers:
+    - https://auth.rockbot.com/application/o/mcp-server/
+  authorization_server_software: authentik 2026.5.4
+  metadata_document: well-known/rockbot-mcp-authorization-server.json
+  authorization_endpoint: https://auth.rockbot.com/application/o/authorize/
+  token_endpoint: https://auth.rockbot.com/application/o/token/
+  grant_types_supported:
+    - authorization_code
+    - refresh_token
+    - client_credentials
+    - urn:ietf:params:oauth:grant-type:device_code
+  code_challenge_methods_supported: [S256, plain]
+  scopes_supported: [openid, email, profile]
+  note: >-
+    The MCP surface authenticates against a SEPARATE authorization server from
+    the v5 REST API. REST uses OAuth 2.0 client-credentials against
+    https://api.rockbot.com/v5/api-clients/token with credentials issued by
+    Rockbot support; MCP uses the authentik issuer above. Only the OIDC scopes
+    (openid/email/profile) are advertised — no Rockbot resource scopes appear in
+    the discovery document.
+x-evidence:
+  - url: https://api.rockbot.com/.well-known/oauth-protected-resource
+    method: GET
+    http_status: 200
+    content_type: application/json
+    fetched: '2026-08-13'
+  - url: https://api.rockbot.com/v5/mcp
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response_body: no bearer token
+    www_authenticate: >-
+      Bearer resource_metadata="https://api.rockbot.com/.well-known/oauth-protected-resource/v5/mcp"
+    fetched: '2026-08-13'
+  - url: https://auth.rockbot.com/application/o/mcp-server/.well-known/openid-configuration
+    method: GET
+    http_status: 200
+    content_type: application/json
+    fetched: '2026-08-13'
+tools_status: gated
+tools_method: derived
+tools_source: openapi/_original/rockbot-openapi.yml
 tools:
-  - { name: get_device_status, description: Retrieve device operational metrics and configuration, source_operation: 'openapi/rockbot-openapi.yml#getDeviceStatus' }
-  - { name: get_device_screenshots, description: Fetch recent screen captures for a zone, source_operation: 'openapi/rockbot-openapi.yml#getDeviceScreenshots' }
-  - { name: reboot_device, description: Initiate remote device reboot, source_operation: 'openapi/rockbot-openapi.yml#rebootDevice' }
-  - { name: get_now_playing, description: Retrieve current playback state and queue, source_operation: 'openapi/rockbot-openapi.yml#getNowPlaying' }
-  - { name: skip_track, description: Advance to next track (max 6/hour), source_operation: 'openapi/rockbot-openapi.yml#skipTrack' }
-  - { name: start_music, description: Resume music playback, source_operation: 'openapi/rockbot-openapi.yml#startMusic' }
-  - { name: stop_music, description: Halt music playback, source_operation: 'openapi/rockbot-openapi.yml#stopMusic' }
-  - { name: set_volume, description: Adjust volume 0-100, source_operation: 'openapi/rockbot-openapi.yml#setVolume' }
-  - { name: list_zone_playlists, description: List available playlists for a zone, source_operation: 'openapi/rockbot-openapi.yml#listZonePlaylists' }
-  - { name: create_playlist_override, description: Set a temporary playlist override, source_operation: 'openapi/rockbot-openapi.yml#createPlaylistOverride' }
-  - { name: delete_playlist_override, description: Delete a specific playlist override, source_operation: 'openapi/rockbot-openapi.yml#deletePlaylistOverride' }
-  - { name: list_messaging_campaigns_by_zone, description: List audio-messaging campaigns by zone, source_operation: 'openapi/rockbot-openapi.yml#listMessagingCampaignsByZone' }
-  - { name: create_messaging_campaign_zone, description: Create a zone-level audio-messaging campaign, source_operation: 'openapi/rockbot-openapi.yml#createMessagingCampaignZone' }
-  - { name: play_messaging_campaign, description: Trigger immediate campaign playback, source_operation: 'openapi/rockbot-openapi.yml#playMessagingCampaign' }
-  - { name: list_signage_campaigns_by_zone, description: List signage campaigns by zone, source_operation: 'openapi/rockbot-openapi.yml#listSignageCampaignsByZone' }
-  - { name: create_signage_campaign_zone, description: Create a zone-level signage campaign, source_operation: 'openapi/rockbot-openapi.yml#createSignageCampaignZone' }
-  - { name: get_music_history, description: Zone-level music playback records, source_operation: 'openapi/rockbot-openapi.yml#getMusicHistory' }
-  - { name: export_music_history, description: Submit a group music-history export job, source_operation: 'openapi/rockbot-openapi.yml#exportMusicHistory' }
-  - { name: get_export_job, description: Poll asynchronous export job status, source_operation: 'openapi/rockbot-openapi.yml#getExportJob' }
+- name: get_device_status
+  description: Retrieve device operational metrics and configuration
+  source_operation: openapi/rockbot-devices-api-openapi.yml#getDeviceStatus
+- name: get_device_screenshots
+  description: Fetch recent screen captures for a zone
+  source_operation: openapi/rockbot-devices-api-openapi.yml#getDeviceScreenshots
+- name: reboot_device
+  description: Initiate remote device reboot
+  source_operation: openapi/rockbot-devices-api-openapi.yml#rebootDevice
+- name: get_now_playing
+  description: Retrieve current playback state and queue
+  source_operation: openapi/rockbot-music-api-openapi.yml#getNowPlaying
+- name: skip_track
+  description: Advance to next track (max 6/hour)
+  source_operation: openapi/rockbot-music-api-openapi.yml#skipTrack
+- name: start_music
+  description: Resume music playback
+  source_operation: openapi/rockbot-music-api-openapi.yml#startMusic
+- name: stop_music
+  description: Halt music playback
+  source_operation: openapi/rockbot-music-api-openapi.yml#stopMusic
+- name: set_volume
+  description: Adjust volume 0-100
+  source_operation: openapi/rockbot-music-api-openapi.yml#setVolume
+- name: list_zone_playlists
+  description: List available playlists for a zone
+  source_operation: openapi/rockbot-music-api-openapi.yml#listZonePlaylists
+- name: create_playlist_override
+  description: Set a temporary playlist override
+  source_operation: openapi/rockbot-music-api-openapi.yml#createPlaylistOverride
+- name: delete_playlist_override
+  description: Delete a specific playlist override
+  source_operation: openapi/rockbot-music-api-openapi.yml#deletePlaylistOverride
+- name: list_messaging_campaigns_by_zone
+  description: List audio-messaging campaigns by zone
+  source_operation: openapi/rockbot-audio-messaging-api-openapi.yml#listMessagingCampaignsByZone
+- name: create_messaging_campaign_zone
+  description: Create a zone-level audio-messaging campaign
+  source_operation: openapi/rockbot-audio-messaging-api-openapi.yml#createMessagingCampaignZone
+- name: play_messaging_campaign
+  description: Trigger immediate campaign playback
+  source_operation: openapi/rockbot-audio-messaging-api-openapi.yml#playMessagingCampaign
+- name: list_signage_campaigns_by_zone
+  description: List signage campaigns by zone
+  source_operation: openapi/rockbot-signage-api-openapi.yml#listSignageCampaignsByZone
+- name: create_signage_campaign_zone
+  description: Create a zone-level signage campaign
+  source_operation: openapi/rockbot-signage-api-openapi.yml#createSignageCampaignZone
+- name: get_music_history
+  description: Zone-level music playback records
+  source_operation: openapi/rockbot-data-api-openapi.yml#getMusicHistory
+- name: export_music_history
+  description: Submit a group music-history export job
+  source_operation: openapi/rockbot-data-api-openapi.yml#exportMusicHistory
+- name: get_export_job
+  description: Poll asynchronous export job status
+  source_operation: openapi/rockbot-data-api-openapi.yml#getExportJob

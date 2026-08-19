@@ -1,20 +1,116 @@
-generated: '2026-07-21'
-method: derived
-source: openapi/rockbot-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://developer.rockbot.com/start.html +
+  https://api.rockbot.com/.well-known/oauth-protected-resource +
+  https://auth.rockbot.com/application/o/mcp-server/.well-known/openid-configuration
+notes: >-
+  UPGRADED from derived to searched. Rockbot runs TWO SEPARATE AUTHENTICATION
+  SURFACES with different issuers, different grants, and different onboarding —
+  a fact visible nowhere in the developer documentation, and the single most
+  important thing an integrator needs to know here. Surface 1 is the documented
+  v5 REST API (OAuth 2.0 client-credentials against api.rockbot.com, credentials
+  issued by a human at Rockbot support). Surface 2 is the undocumented Rockbot
+  MCP server (OAuth against a self-hosted authentik identity provider at
+  auth.rockbot.com). A token minted for one will not authenticate the other.
 summary:
   types:
-  - oauth2
+    - oauth2
+    - openIdConnect
   oauth2_flows:
-  - clientCredentials
+    - clientCredentials
+    - authorizationCode
+    - deviceCode
+  surfaces: 2
 schemes:
-- name: oauth2
-  type: oauth2
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://api.rockbot.com/v5/api-clients/token
-    scopes: 0
-  description: 'OAuth 2.0 Client Credentials grant. Exchange a CLIENT_ID/CLIENT_SECRET (issued
-    by Rockbot support) at the token endpoint for a 24-hour bearer ACCESS_TOKEN, then send it
-    as `Authorization: Bearer ACCESS_TOKEN`.'
-  sources:
-  - openapi/rockbot-openapi.yml
+  - name: oauth2
+    type: oauth2
+    surface: REST v5 API
+    applies_to: https://api.rockbot.com/v5
+    flows:
+      - flow: clientCredentials
+        tokenUrl: https://api.rockbot.com/v5/api-clients/token
+        scopes: 0
+    token_type: bearer
+    header: 'Authorization: Bearer ACCESS_TOKEN'
+    token_ttl_hours: 24
+    request_format: >-
+      POST application/json with {"client_id": "...", "client_secret": "..."} —
+      NOT the RFC 6749 form-encoded grant_type=client_credentials body. A
+      standards-compliant OAuth client library will not work unmodified.
+    onboarding: >-
+      Email support@rockbot.com with subject "Rockbot API Access Request", a link
+      to your Dashboard, and the features you want. The email must come from the
+      address tied to your Rockbot user. On approval you receive a CLIENT_ID and
+      a ONE-TIME link to retrieve the CLIENT_SECRET at
+      /v5/api-clients/CLIENT_ID/secret?one_time_code=... — the secret is shown
+      once and never again.
+    scope_model: >-
+      "Your credentials only grant access to the scopes you requested." Scopes
+      exist and are bound to the client at issuance, but Rockbot publishes no
+      scope reference — see scopes/rockbot-scopes.yml.
+    description: >-
+      OAuth 2.0 Client Credentials grant. Exchange a CLIENT_ID/CLIENT_SECRET
+      (issued by Rockbot support) at the token endpoint for a 24-hour bearer
+      ACCESS_TOKEN, then send it as `Authorization: Bearer ACCESS_TOKEN`.
+    sources:
+      - https://developer.rockbot.com/start.html
+      - openapi/rockbot-auth-api-openapi.yml
+  - name: mcp-oauth
+    type: openIdConnect
+    surface: Rockbot MCP server
+    applies_to: https://api.rockbot.com/v5/mcp
+    discovery:
+      protected_resource_metadata: https://api.rockbot.com/.well-known/oauth-protected-resource/v5/mcp
+      protected_resource_metadata_spec: RFC 9728
+      openid_configuration: https://auth.rockbot.com/application/o/mcp-server/.well-known/openid-configuration
+      saved: well-known/rockbot-mcp-authorization-server.json
+    issuer: https://auth.rockbot.com/application/o/mcp-server/
+    software: authentik 2026.5.4
+    authorization_endpoint: https://auth.rockbot.com/application/o/authorize/
+    token_endpoint: https://auth.rockbot.com/application/o/token/
+    userinfo_endpoint: https://auth.rockbot.com/application/o/userinfo/
+    introspection_endpoint: https://auth.rockbot.com/application/o/introspect/
+    revocation_endpoint: https://auth.rockbot.com/application/o/revoke/
+    device_authorization_endpoint: https://auth.rockbot.com/application/o/device/
+    jwks_uri: https://auth.rockbot.com/application/o/mcp-server/jwks/
+    grant_types_supported:
+      - authorization_code
+      - refresh_token
+      - implicit
+      - client_credentials
+      - password
+      - urn:ietf:params:oauth:grant-type:device_code
+    token_endpoint_auth_methods_supported:
+      - client_secret_post
+      - client_secret_basic
+    code_challenge_methods_supported: [S256, plain]
+    id_token_signing_alg_values_supported: [RS256]
+    scopes_supported: [openid, email, profile]
+    bearer_methods_supported: [header]
+    challenge: >-
+      An unauthenticated call returns HTTP 401 with body `no bearer token` and
+      WWW-Authenticate: Bearer
+      resource_metadata="https://api.rockbot.com/.well-known/oauth-protected-resource/v5/mcp"
+    onboarding: >-
+      Not documented. No public client registration endpoint is advertised
+      (registration_endpoint is absent from the discovery document), and dynamic
+      client registration was not offered, so obtaining MCP credentials appears
+      to require Rockbot to provision them.
+    description: >-
+      OpenID Connect / OAuth 2.0 against Rockbot's self-hosted authentik. Used
+      only by the MCP surface. Advertises standard OIDC scopes; no Rockbot
+      resource scopes appear in discovery.
+    sources:
+      - https://api.rockbot.com/.well-known/oauth-protected-resource
+      - https://auth.rockbot.com/application/o/mcp-server/.well-known/openid-configuration
+      - mcp/rockbot-mcp.yml
+observations:
+  - >-
+    PKCE is supported (S256), but `plain` is also advertised, and the implicit
+    and password grants remain enabled on the authentik provider. Those are
+    deprecated grants and are worth flagging to Rockbot.
+  - >-
+    Invalid client credentials at the REST token endpoint return HTTP 500, not
+    401/400 — see errors/rockbot-problem-types.yml. Clients must not treat that
+    500 as retryable.

@@ -1,13 +1,75 @@
-generated: '2026-07-21'
-method: derived
-source: openapi/rockbot-openapi.yml
-schemes:
-- name: oauth2
-  source: openapi/rockbot-openapi.yml
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://api.rockbot.com/v5/api-clients/token
-  description: 'OAuth 2.0 Client Credentials grant. Exchange a CLIENT_ID/CLIENT_SECRET (issued
-    by Rockbot support) at the token endpoint for a 24-hour bearer ACCESS_TOKEN, then send it
-    as `Authorization: Bearer ACCESS_TOKEN`.'
-scopes: []
+generated: '2026-08-13'
+method: searched
+source: https://developer.rockbot.com/start.html
+docs: https://developer.rockbot.com/start.html
+scope_count: 3
+notes: >-
+  UPGRADED from derived to searched. Rockbot's REST API DOES have a scope model —
+  the Getting Started page states plainly: "Your credentials only grant access to
+  the scopes you requested." Scopes are therefore bound to the API client at
+  issuance time and negotiated by email, not requested per-token. But Rockbot
+  publishes NO scope reference, NO permission matrix, and NO scope names, and the
+  OpenAPI's oauth2 flow declares an empty scopes object. So the scope surface is
+  real and undiscoverable at the same time: an integrator cannot know what to ask
+  for without asking a human. The only enumerable scopes anywhere in the Rockbot
+  estate belong to the SEPARATE MCP authorization server, and they are the three
+  generic OIDC scopes listed below — not Rockbot resource scopes.
+rest_api:
+  scopes_documented: false
+  scopes_enumerable: false
+  model: >-
+    Per-client, granted at credential issuance based on "which features you'd
+    like to access via the Rockbot API" (quoted from the access-request
+    instructions). Effective scope is whatever Rockbot support approved.
+  request_process: >-
+    Email support@rockbot.com, subject "Rockbot API Access Request", naming the
+    features required.
+  scopes: []
+  scopes_note: >-
+    Empty because Rockbot names none — an honest gap, not an assertion that the
+    API is unscoped. openapi/rockbot-auth-api-openapi.yml declares the
+    clientCredentials flow with zero scopes for the same reason.
+  inferable_capability_groups:
+    note: >-
+      NOT SCOPES. Listed only as the feature axes a requester would name in the
+      access-request email, taken from the API's own tag structure.
+    groups: [Music, Audio Messaging, Signage, Devices, Data]
+mcp_server:
+  issuer: https://auth.rockbot.com/application/o/mcp-server/
+  source: https://auth.rockbot.com/application/o/mcp-server/.well-known/openid-configuration
+  saved: well-known/rockbot-mcp-authorization-server.json
+  scopes_documented: true
+  scopes:
+    - name: openid
+      description: Standard OIDC scope — request an ID token.
+      standard: true
+    - name: email
+      description: Standard OIDC scope — release the email claim.
+      standard: true
+    - name: profile
+      description: >-
+        Standard OIDC scope — release profile claims (name, given_name,
+        preferred_username, nickname, groups).
+      standard: true
+  scopes_note: >-
+    All three are generic OpenID Connect scopes emitted by the authentik default
+    provider. NO Rockbot-specific resource scope (music, signage, devices, data)
+    is advertised in discovery, so what a Rockbot MCP token is actually
+    authorized to do cannot be determined from the published metadata.
+claims_supported:
+  - sub
+  - iss
+  - aud
+  - exp
+  - iat
+  - auth_time
+  - acr
+  - amr
+  - nonce
+  - email
+  - email_verified
+  - name
+  - given_name
+  - preferred_username
+  - nickname
+  - groups
