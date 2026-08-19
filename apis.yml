@@ -37,7 +37,7 @@ accessModel:
     No API-specific price is published.
   generated: '2026-08-13'
   method: searched
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-13'
 image: https://cdn.sanity.io/images/6h2uzio7/production/f258140dd891894dc1e27722af21f29a7c8c33e5-1581x1581.png
