@@ -68,6 +68,8 @@ apis:
   humanURL: https://developer.rockbot.com
   baseURL: https://api.rockbot.com/v5
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
