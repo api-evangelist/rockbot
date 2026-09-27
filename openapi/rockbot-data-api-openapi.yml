@@ -126,19 +126,6 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Page size for paginated results.
-      schema:
-        type: integer
-    offset:
-      name: offset
-      in: query
-      description: Zero-based offset for paginated results.
-      schema:
-        type: integer
   schemas:
     PaginatedResponse:
       type: object
@@ -171,23 +158,36 @@ components:
         expires_at:
           type: string
           format: date-time
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Page size for paginated results.
+      schema:
+        type: integer
+    offset:
+      name: offset
+      in: query
+      description: Zero-based offset for paginated results.
+      schema:
+        type: integer
   responses:
     RateLimited:
       description: Rate limit exceeded. The default limit is 1 request per second.
-    ExportJob:
-      description: Export job state.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExportJob'
-    Unauthorized:
-      description: Missing or invalid bearer access token.
     Paginated:
       description: Paginated collection.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/PaginatedResponse'
+    Unauthorized:
+      description: Missing or invalid bearer access token.
+    ExportJob:
+      description: Export job state.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExportJob'
   securitySchemes:
     oauth2:
       type: oauth2
