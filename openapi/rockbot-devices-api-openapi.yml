@@ -65,10 +65,6 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   responses:
-    Unauthorized:
-      description: Missing or invalid bearer access token.
-    RateLimited:
-      description: Rate limit exceeded. The default limit is 1 request per second.
     Object:
       description: Success. Returns a JSON object or array.
       content:
@@ -76,6 +72,10 @@ components:
           schema:
             type: object
             additionalProperties: true
+    RateLimited:
+      description: Rate limit exceeded. The default limit is 1 request per second.
+    Unauthorized:
+      description: Missing or invalid bearer access token.
   securitySchemes:
     oauth2:
       type: oauth2
