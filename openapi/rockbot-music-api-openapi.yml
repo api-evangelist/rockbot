@@ -197,37 +197,6 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    Object:
-      description: Success. Returns a JSON object or array.
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: true
-    RateLimited:
-      description: Rate limit exceeded. The default limit is 1 request per second.
-    Paginated:
-      description: Paginated collection.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PaginatedResponse'
-    Unauthorized:
-      description: Missing or invalid bearer access token.
-  parameters:
-    offset:
-      name: offset
-      in: query
-      description: Zero-based offset for paginated results.
-      schema:
-        type: integer
-    limit:
-      name: limit
-      in: query
-      description: Page size for paginated results.
-      schema:
-        type: integer
   schemas:
     PaginatedResponse:
       type: object
@@ -246,6 +215,37 @@ components:
           items:
             type: object
             additionalProperties: true
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Page size for paginated results.
+      schema:
+        type: integer
+    offset:
+      name: offset
+      in: query
+      description: Zero-based offset for paginated results.
+      schema:
+        type: integer
+  responses:
+    Paginated:
+      description: Paginated collection.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaginatedResponse'
+    Unauthorized:
+      description: Missing or invalid bearer access token.
+    Object:
+      description: Success. Returns a JSON object or array.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    RateLimited:
+      description: Rate limit exceeded. The default limit is 1 request per second.
   securitySchemes:
     oauth2:
       type: oauth2
