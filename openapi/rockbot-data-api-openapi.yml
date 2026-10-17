@@ -126,7 +126,34 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Page size for paginated results.
+      schema:
+        type: integer
+    offset:
+      name: offset
+      in: query
+      description: Zero-based offset for paginated results.
+      schema:
+        type: integer
   schemas:
+    ExportJob:
+      type: object
+      description: Asynchronous export job. On completion, `url` holds a presigned link to a JSONL download valid until `expires_at`.
+      properties:
+        job_id:
+          type: string
+        status:
+          type: string
+        url:
+          type: string
+          format: uri
+        expires_at:
+          type: string
+          format: date-time
     PaginatedResponse:
       type: object
       description: Common pagination envelope shared by paginated endpoints.
@@ -144,50 +171,23 @@ components:
           items:
             type: object
             additionalProperties: true
-    ExportJob:
-      type: object
-      description: Asynchronous export job. On completion, `url` holds a presigned link to a JSONL download valid until `expires_at`.
-      properties:
-        job_id:
-          type: string
-        status:
-          type: string
-        url:
-          type: string
-          format: uri
-        expires_at:
-          type: string
-          format: date-time
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Page size for paginated results.
-      schema:
-        type: integer
-    offset:
-      name: offset
-      in: query
-      description: Zero-based offset for paginated results.
-      schema:
-        type: integer
   responses:
+    Unauthorized:
+      description: Missing or invalid bearer access token.
     ExportJob:
       description: Export job state.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ExportJob'
+    RateLimited:
+      description: Rate limit exceeded. The default limit is 1 request per second.
     Paginated:
       description: Paginated collection.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/PaginatedResponse'
-    Unauthorized:
-      description: Missing or invalid bearer access token.
-    RateLimited:
-      description: Rate limit exceeded. The default limit is 1 request per second.
   securitySchemes:
     oauth2:
       type: oauth2
