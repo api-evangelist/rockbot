@@ -1,5 +1,7 @@
 aid: rockbot
+
 name: Rockbot
+
 description: >-
   Rockbot is a unified in-location media platform for businesses, giving multi-location
   operators one system to control background music, audio messaging, digital signage,
@@ -11,13 +13,20 @@ description: >-
   Authentication is OAuth 2.0 client-credentials issuing 24-hour bearer tokens, with a
   documented default rate limit of one request per second. Rockbot is a GV (Google
   Ventures) portfolio company in the consumer sector.
+
 url: https://raw.githubusercontent.com/api-evangelist/rockbot/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - gv
-x-tier: stub
-x-tier-reason: portfolio-lead
+
+x-tier: profiled
+
+x-tier-reason: enrichment pass 2026-10-20 (local-v5; was portfolio-lead)
+
 deliveryModel:
   model: saas
   open_source: false
@@ -30,6 +39,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: paid
   onboarding: request
@@ -49,10 +59,15 @@ accessModel:
     No API-specific price is published.
   generated: '2026-08-13'
   method: searched
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-10-06'
+
 image: https://cdn.sanity.io/images/6h2uzio7/production/f258140dd891894dc1e27722af21f29a7c8c33e5-1581x1581.png
+
 tags:
 - Company
 - Consumer
@@ -63,6 +78,93 @@ tags:
 - In-Location Media
 - Media
 - Entertainment
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+
+common:
+- type: Spectral
+  url: rules/rockbot-rules.yml
+- type: JSONLD
+  url: json-ld/rockbot-context.jsonld
+- type: Vocabulary
+  url: vocabulary/rockbot-vocabulary.yml
+- type: Hosts
+  url: hosts/rockbot-hosts.yml
+- type: IntegrationEdges
+  url: integrations/rockbot-integration-edges.yml
+- type: Vendors
+  url: vendors/rockbot-vendors.yml
+- url: https://blog.rockbot.com/rss.xml
+  type: BlogRSS
+- type: AgenticAccess
+  url: agentic-access/rockbot-agentic-access.yml
+- type: DomainSecurity
+  url: security/rockbot-domain-security.yml
+- type: OAuthScopes
+  url: scopes/rockbot-scopes.yml
+- type: Authentication
+  url: authentication/rockbot-authentication.yml
+- type: Website
+  url: https://rockbot.com
+- type: DeveloperPortal
+  url: https://developer.rockbot.com
+- type: Documentation
+  url: https://developer.rockbot.com/api.html
+- type: APIReference
+  url: https://developer.rockbot.com/api.html
+- type: GettingStarted
+  url: https://developer.rockbot.com/start.html
+- type: Support
+  url: https://support.rockbot.com/hc/en-us
+- type: Blog
+  url: https://blog.rockbot.com
+- type: Pricing
+  url: https://rockbot.com/pricing
+- type: SignUp
+  url: https://buy.rockbot.com/trial
+- type: Login
+  url: https://rockbot.com/login
+- type: TermsOfService
+  url: https://rockbot.com/terms
+- type: PrivacyPolicy
+  url: https://rockbot.com/privacy
+- type: StatusPage
+  url: https://status.rockbot.com
+- type: Lifecycle
+  url: lifecycle/rockbot-lifecycle.yml
+- type: Conventions
+  url: conventions/rockbot-conventions.yml
+- type: ErrorCatalog
+  url: errors/rockbot-problem-types.yml
+- type: DataModel
+  url: data-model/rockbot-data-model.yml
+- type: Conformance
+  url: conformance/rockbot-conformance.yml
+- type: Overlay
+  url: overlays/rockbot-openapi-overlay.yaml
+- type: MCPServer
+  url: mcp/rockbot-mcp.yml
+- type: LLMsTxt
+  url: llms/rockbot-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/rockbot-well-known.yml
+- type: Plans
+  url: plans/rockbot-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/rockbot-rate-limits.yml
+- type: TrustCenter
+  url: security/rockbot-trust-center.yml
+- type: Compliance
+  url: https://trust.rockbot.com
+- type: GitHubOrganization
+  url: https://github.com/rockbot-inc
+
 apis:
 - aid: rockbot:rockbot-audio-messaging-api
   name: Rockbot Audio Messaging API
@@ -126,84 +228,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rockbot-signage-api-openapi.yml
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
-- FN: APIs.json
-  email: info@apis.io
-common:
-- url: https://blog.rockbot.com/rss.xml
-  type: BlogRSS
-- type: AgenticAccess
-  url: agentic-access/rockbot-agentic-access.yml
-- type: DomainSecurity
-  url: security/rockbot-domain-security.yml
-- type: OAuthScopes
-  url: scopes/rockbot-scopes.yml
-- type: Authentication
-  url: authentication/rockbot-authentication.yml
-- type: Website
-  url: https://rockbot.com
-- type: DeveloperPortal
-  url: https://developer.rockbot.com
-- type: Documentation
-  url: https://developer.rockbot.com/api.html
-- type: APIReference
-  url: https://developer.rockbot.com/api.html
-- type: GettingStarted
-  url: https://developer.rockbot.com/start.html
-- type: Support
-  url: https://support.rockbot.com/hc/en-us
-- type: Blog
-  url: https://blog.rockbot.com
-- type: Pricing
-  url: https://rockbot.com/pricing
-- type: SignUp
-  url: https://buy.rockbot.com/trial
-- type: Login
-  url: https://rockbot.com/login
-- type: TermsOfService
-  url: https://rockbot.com/terms
-- type: PrivacyPolicy
-  url: https://rockbot.com/privacy
-- type: StatusPage
-  url: https://status.rockbot.com
-- type: Lifecycle
-  url: lifecycle/rockbot-lifecycle.yml
-- type: Conventions
-  url: conventions/rockbot-conventions.yml
-- type: ErrorCatalog
-  url: errors/rockbot-problem-types.yml
-- type: DataModel
-  url: data-model/rockbot-data-model.yml
-- type: Conformance
-  url: conformance/rockbot-conformance.yml
-- type: Overlay
-  url: overlays/rockbot-openapi-overlay.yaml
-- type: MCPServer
-  url: mcp/rockbot-mcp.yml
-- type: ToolCrosswalk
-  url: mcp/rockbot-tool-crosswalk.yml
-- type: LLMsTxt
-  url: llms/rockbot-llms.txt
-- type: AgentSkill
-  url: skills/_index.yml
-- type: WellKnown
-  url: well-known/rockbot-well-known.yml
-- type: Packages
-  url: packages/rockbot-packages.yml
-- type: Plans
-  url: plans/rockbot-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/rockbot-rate-limits.yml
-- type: TrustCenter
-  url: security/rockbot-trust-center.yml
-- type: Compliance
-  url: https://trust.rockbot.com
-- type: GitHubOrganization
-  url: https://github.com/rockbot-inc
 x-enrichment:
-  date: '2026-08-13'
+  date: '2026-10-20'
   status: enriched
-  artifacts_added: 9
-  pass: local-v1
+  artifacts_added: 0
+  pass: local-v5

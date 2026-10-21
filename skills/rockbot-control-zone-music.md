@@ -1,5 +1,5 @@
 ---
-name: Control zone music playback
+name: control-zone-music
 description: Authenticate to the Rockbot v5 API and control music for a location — check what's playing, start/stop, adjust volume, skip, and apply a temporary playlist override.
 api: openapi/rockbot-openapi.yml
 operations: [createAccessToken, getNowPlaying, startMusic, stopMusic, setVolume, skipTrack, listZonePlaylists, createPlaylistOverride, deleteAllPlaylistOverrides]

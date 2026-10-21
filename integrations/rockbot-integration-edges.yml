@@ -1,9 +1,19 @@
-generated: '2026-10-14'
+generated: '2026-10-20'
 method: searched
-checked:
-- clover/integrations/clover-integration-edges.yml
 source:
 - clover/integrations/clover-integration-edges.yml
+- https://zapier.com/apps/rockbot/integrations
+- https://n8n.io/integrations/rockbot/
+- https://composio.dev/toolkits/rockbot
+- https://monid.ai/tools/rockbot
+checked:
+- clover/integrations/clover-integration-edges.yml
+- https://composio.dev/toolkits/rockbot
+- https://monid.ai/tools/rockbot
+- https://n8n.io/integrations/rockbot/
+- https://zapier.com/apps/rockbot/integrations
+summary: null
+marketplace_apps: []
 edges:
 - partner_name: Clover (own)
   partner: clover
@@ -22,3 +32,4 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: QUICK_SERVICE_RESTAURANT
+templates: []

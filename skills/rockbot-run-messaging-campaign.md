@@ -1,5 +1,5 @@
 ---
-name: Run an audio-messaging campaign
+name: run-messaging-campaign
 description: Authenticate to the Rockbot v5 API, upload an audio asset, create a zone-level messaging campaign, attach the asset, and enable or immediately play it.
 api: openapi/rockbot-openapi.yml
 operations: [createAccessToken, uploadMessagingAssetZone, listMessagingAssetsByZone, createMessagingCampaignZone, addMessagingCampaignAsset, enableMessagingCampaign, playMessagingCampaign, listMessagingCampaignsByZone]

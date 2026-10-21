@@ -1,0 +1,55 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/rockbot-audio-messaging-api-openapi.yml
+- openapi/rockbot-auth-api-openapi.yml
+- openapi/rockbot-data-api-openapi.yml
+- openapi/rockbot-devices-api-openapi.yml
+- openapi/rockbot-music-api-openapi.yml
+vocabulary:
+  name: Rockbot Domain Vocabulary
+  description: 'Terms declared by Rockbot''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-20'
+  terms:
+  - term: Audio Messaging
+    definition: Audio-messaging campaigns and assets by group or zone.
+    tags:
+    - Resource Group
+    source: openapi/rockbot-audio-messaging-api-openapi.yml
+  - term: Auth
+    definition: OAuth 2.0 client-credentials token exchange.
+    tags:
+    - Resource Group
+    source: openapi/rockbot-auth-api-openapi.yml
+  - term: Data
+    definition: Playback history and asynchronous history exports.
+    tags:
+    - Resource Group
+    source: openapi/rockbot-data-api-openapi.yml
+  - term: Devices
+    definition: Device status, screenshots, and remote reboot.
+    tags:
+    - Resource Group
+    source: openapi/rockbot-devices-api-openapi.yml
+  - term: Music
+    definition: Playback control and playlist overrides per zone.
+    tags:
+    - Resource Group
+    source: openapi/rockbot-music-api-openapi.yml
+  - term: Signage
+    definition: Digital-signage campaigns and assets by group or zone.
+    tags:
+    - Resource Group
+    source: openapi/rockbot-signage-api-openapi.yml
+  - term: ExportJob
+    definition: Asynchronous export job. On completion, `url` holds a presigned link to a JSONL download valid until `expires_at`.
+    tags:
+    - Object
+    source: openapi/rockbot-data-api-openapi.yml#/components/schemas/ExportJob
+  - term: PaginatedResponse
+    definition: Common pagination envelope shared by paginated endpoints.
+    tags:
+    - Object
+    source: openapi/rockbot-data-api-openapi.yml#/components/schemas/PaginatedResponse
